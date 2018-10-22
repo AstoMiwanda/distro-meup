@@ -1,2 +1,2 @@
 # distro-meup
-Projek lokal membuat aplikasi kasir berbasis web.
+Projek membuat aplikasi kasir berbasis website
