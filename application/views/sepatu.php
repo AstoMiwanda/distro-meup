@@ -13,7 +13,7 @@
 
 <div id="baju">
 
-		<div class="flex">
+		<div class="flex-all">
 			<!-- End of Menu Navbar Left -->
 			<div class="menu">
 				<div class="profile">
@@ -26,6 +26,11 @@
 				</div>
 
 				<div class="navbar-left">
+					<a href="<?=base_url()?>Transaksi"><div class="navbar-left-list">
+						<img src="<?=base_url()?>assets/img/baju.svg">
+						<p>Transaksi</p>
+					</div></a>
+
 					<a href="<?=base_url()?>Baju"><div class="navbar-left-list">
 						<img src="<?=base_url()?>assets/img/baju.svg">
 						<p>Baju Distro</p>
@@ -36,7 +41,7 @@
 						<p>Celana Distro</p>
 					</div></a>
 
-					<a href="<?=base_url()?>Sepatu"><div class="navbar-left-list" style="background-color: #ffffff; color: #222222;">
+					<a href="<?=base_url()?>Sepatu"><div class="active navbar-left-list">
 						<img src="<?=base_url()?>assets/img/sepatu.svg">
 						<p>Sepatu Distro</p>
 					</div></a>
@@ -85,9 +90,9 @@
 						<input type="text" name="cari" class="input-cari" placeholder="Search">
 						<img src="<?=base_url()?>assets/img/search.svg">
 					</div>
-
-					<button type="submit" class="btn-submit">Tambah</button>
 				</form>
+
+				<a href="<?=base_url()?>Sepatu/ViewAdd"><button class="btn-submit">Tambah</button></a>
 				<!-- End of Nabvar Content -->
 
 				<div class="table-content">
@@ -105,16 +110,15 @@
 							<th colspan="2">Aksi</th>
 						</tr>
 
-						<?php for ($i=1; $i < 6; $i++)
-						{ ?>
+						<?php foreach ($isi->result() as $value) { ?>
 							<tr>
-								<td><?php echo $i;?></td>
-								<td>Baju Distro Me Up</td>
-								<td>Hitam</td>
-								<td>XL</td>
-								<td>46</td>
-								<td><a href="<?=base_url()?>assets/Baju/Edit">Edit</a></td>
-								<td><a href="<?=base_url()?>assets/Baju/Delete">Delete</a></td>
+								<td><?php echo $value->id ?></td>
+								<td><?php echo $value->merk ?></td>
+								<td><?php echo $value->warna ?></td>
+								<td><?php echo $value->ukuran ?></td>
+								<td><?php echo $value->stock ?></td>
+								<td><a href="<?=base_url()?>Sepatu/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+								<td><a href="<?=base_url()?>Sepatu/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></a></td>
 							</tr>
 						<?php }?>
 					</table>

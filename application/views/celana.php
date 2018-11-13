@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<title>Baju Distro</title>
+	<title>Celana Distro</title>
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/responsive.css">
 </head>
@@ -13,7 +13,7 @@
 
 <div id="baju">
 
-		<div class="flex">
+		<div class="flex-all">
 			<!-- End of Menu Navbar Left -->
 			<div class="menu">
 				<div class="profile">
@@ -26,12 +26,17 @@
 				</div>
 
 				<div class="navbar-left">
+					<a href="<?=base_url()?>Transaksi"><div class="navbar-left-list">
+						<img src="<?=base_url()?>assets/img/baju.svg">
+						<p>Transaksi</p>
+					</div></a>
+					
 					<a href="<?=base_url()?>Baju"><div class="navbar-left-list">
 						<img src="<?=base_url()?>assets/img/baju.svg">
 						<p>Baju Distro</p>
 					</div></a>
 
-					<a href="<?=base_url()?>Celana"><div class="navbar-left-list" style="background-color: #ffffff; color: #222222;">
+					<a href="<?=base_url()?>Celana"><div class="active navbar-left-list">
 						<img src="<?=base_url()?>assets/img/celana.svg">
 						<p>Celana Distro</p>
 					</div></a>
@@ -56,7 +61,7 @@
 				</div>
 
 				<div class="content-title">
-					<h4><?php echo "Baju"." Distro Me Up"; ?></h4>
+					<h4><?php echo "Celana"." Distro Me Up"; ?></h4>
 					<div class="line"></div>
 				</div>
 
@@ -85,14 +90,14 @@
 						<input type="text" name="cari" class="input-cari" placeholder="Search">
 						<img src="<?=base_url()?>assets/img/search.svg">
 					</div>
-
-					<button type="submit" class="btn-submit">Tambah</button>
 				</form>
+
+				<a href="<?=base_url()?>Celana/ViewAdd"><button class="btn-submit">Tambah</button></a>
 				<!-- End of Nabvar Content -->
 
 				<div class="table-content">
 					<div class="navbar-table-content">
-						<h4>Data Baju</h4>
+						<h4>Data Celana</h4>
 					</div>
 
 					<table border="1">
@@ -105,18 +110,17 @@
 							<th colspan="2">Aksi</th>
 						</tr>
 
-						<?php for ($i=1; $i < 6; $i++)
-						{ ?>
+						<?php foreach ($isi->result() as $value) { ?>
 							<tr>
-								<td><?php echo $i;?></td>
-								<td>Baju Distro Me Up</td>
-								<td>Hitam</td>
-								<td>XL</td>
-								<td>46</td>
-								<td><a href="<?=base_url()?>assets/Baju/Edit">Edit</a></td>
-								<td><a href="<?=base_url()?>assets/Baju/Delete">Delete</a></td>
+								<td><?php echo $value->id ?></td>
+								<td><?php echo $value->merk ?></td>
+								<td><?php echo $value->warna ?></td>
+								<td><?php echo $value->ukuran ?></td>
+								<td><?php echo $value->stock ?></td>
+								<td><a href="<?=base_url()?>Celana/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+								<td><a href="<?=base_url()?>Celana/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
 							</tr>
-						<?php }?>
+						<?php } ?>
 					</table>
 
 					<div class="flex table-button">
