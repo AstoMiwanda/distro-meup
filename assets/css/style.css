@@ -1,3 +1,5 @@
+.blue-black{background-color: #0D184A}
+.blue-black1{background-color: #2F3545}
 body {
 	width: 100%;
 	margin: 0;
@@ -5,14 +7,25 @@ body {
 }
 
 .container {
-	width: 95%;
+	width: 90%;
 	overflow: hidden;
 	margin: auto;
 }
 
-.flex {
+.flex, .flex-vcenter, .flex-hcenter, .flex-center, .flex-spaceBetween, .flex-Column{
 	display: flex;
+}
+.flex-hcenter{
 	align-items: center;
+}
+.flex-vcenter{
+	justify-content: center;
+}
+.flex-spaceBetween{
+	justify-content: space-between;
+}
+.flex-Column{
+	flex-direction: column;
 }
 
 .line {
@@ -34,6 +47,9 @@ body {
 #baju .menu {
 	width: 20%;
 	background-color: #34495e;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 #baju .profile {
@@ -60,6 +76,7 @@ body {
 	font-weight: 500;
 	line-height: 22pt;
 	letter-spacing: .2pt;
+	text-align: center;
 	color: #ffffff;
 }
 
@@ -94,6 +111,9 @@ body {
 	color: #222222;
 	font-weight: bold;
 }
+#baju .active img{
+	filter: unset !important;
+}
 
 #baju .navbar-left {
 	margin-top: 25px;
@@ -103,7 +123,7 @@ body {
 	width: 26px;
 	height: 26px;
 	margin-right: 25px;
-	filter: brightness(100%);
+	filter: brightness(100%) invert(1);
 }
 
 #baju .navbar-left a {
@@ -123,6 +143,36 @@ body {
 	background-color: #ffffff;
 	color: #333333;
 	font-weight: bold;
+}
+#baju .navbar-left-list:hover img{
+	filter: unset !important;
+}
+
+#baju .logout{
+	padding: 50px 0 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+#baju .logout-box{
+	cursor: pointer;
+	width: 100%;
+	padding: 8px 0;
+	background-color: #de3d4b;
+	text-align: center;
+}
+#baju .logout-box:hover{
+	background-color: #ea5a66;
+}
+#baju .logout a{
+	text-decoration: none;
+	font-family: 'Verdana';
+    color: #ffffff;
+    font-size: 11pt;
+    font-weight: 500;
+    line-height: 18pt;
+    letter-spacing: .2pt;
 }
 
 #baju .content {
@@ -150,6 +200,7 @@ body {
 
 #baju .content-title {
 	text-align: center;
+	margin-bottom: 85px;
 }
 
 #baju .content-title h4 {
@@ -171,7 +222,7 @@ body {
 #baju .navbar-content {
 	display: flex;
 	align-items: center;
-	width: 80%;
+	width: 99%;
 	margin: auto;
 	justify-content: space-between;
 	margin-top: 50px;
@@ -222,13 +273,14 @@ body {
 
 #baju .search img {
 	width: 16px;
+	height: 16px;
 }
 
 #baju .search img:hover {
 	cursor: pointer;
 }
 
-#baju .navbar-content button {
+#baju .btn-submit {
 	border: none;
 	border-radius: 5px;
 	padding: 7px 45px;
@@ -239,14 +291,14 @@ body {
 	background-color: #2ecc71
 }
 
-#baju .navbar-content button:hover {
+#baju .btn-submit:hover {
 	cursor: pointer;
 	background-color: #27ae60;
 	box-shadow: 0 2px 8px 1px rgba(34, 34, 34, .2);
 }
 
 #baju .table-content {
-	width: 80%;
+	width: 99%;
 	margin: auto;
 	border: 1px solid #aaaaaa;
 	border-top: none;
@@ -346,11 +398,11 @@ body {
 }
 
 #baju .input-transaksi {
-	width: 70%;
+	width: 60%;
 }
 
 #baju .input-transaksi table {
-	width: 80%;
+	width: 100%;
 }
 
 #baju .input-transaksi table td {
@@ -363,7 +415,7 @@ body {
 }
 
 #baju .input-transaksi table input {
-	width: 90%;
+	width: 80%;
     padding: 5px 15px;
     border-radius: 3px;
     border: 1px #696969 solid;
@@ -413,7 +465,7 @@ body {
 }
 
 #baju .total-transaksi input {
-	width: 70%;
+	width: 100%;
 	padding: 5px 15px;
 	border-radius: 3px;
 	border: 1px #696969 solid;
@@ -423,3 +475,93 @@ body {
 	line-height: 18pt;
 	letter-spacing: .2pt;
 }
+
+/*Input Form*/
+#input{
+	width: 40%;
+	height: 1 vh;
+	margin: auto;
+	padding: 0;
+	background-color: #f4f4f4;
+	padding-bottom: 25px;
+	border-radius: 3px;
+}
+#input .header{
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	width: 100%;
+	background-color: #f1c40f;
+	color: #fff;
+	text-align: center;
+	font-size: 18pt;
+	padding: 15px 0;
+	margin-top: 50px;
+}
+.form{
+	padding: 15px 10px;
+	margin-top: 15px;
+	border-radius: 3px;
+	border: none;
+	border: solid 1px #222;
+	width: 280px;
+}
+#input .box-btn{
+	margin: 45px 0 0 0;
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+#input .submit, #input .submit-edit{
+	width: 100%;
+	padding: 10px 50px;
+	margin-top: 25px;
+	border: none;
+	border-radius: 3px;
+	background-color: #34495e;
+	color: #fff;
+	font-weight: bold;
+}
+#input .submit-edit{
+	width: 45%;
+}
+#input .submit:hover, #input .submit-edit:hover{
+	cursor: pointer;
+	background-origin: #22364a;
+	box-shadow: 8px 6px 8px 0 rgba(0,0,0,.2);
+}
+
+/*Template Style*/
+#tables-barang table tr td img {
+	width: 22px;
+	height: 22px;
+}
+/*#tables-barang table {
+	width: 90%;
+	margin: 15px auto;
+	font-family: 'Verdana';
+	color: #222222;
+	font-size: 11pt;
+}*/
+#tables-barang table tr th {
+	padding: 8px 0;
+	color: #222222;
+	text-align: center;
+}
+#tables-barang table tr td {
+	padding: 6px 0;
+	font-size: 11pt;
+	color: #444444;
+	text-align: center;
+}
+#tables-barang table tr td:nth-child(2) {
+	text-align: left;
+	padding-left: 15px;
+}
+.content-wrapper .btn-success{
+	margin-left: 15px;
+	width: 150px;
+	margin-top: 25px;
+}
+#main-header .navbar-nav>.user-menu>.dropdown-menu>li.user-header{height: 80px !important;}
+/*End of Template Style*/

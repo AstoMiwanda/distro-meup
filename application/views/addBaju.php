@@ -9,41 +9,30 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/responsive.css">
 </head>
+<style type="text/css">
+body{
+    width: 100%;
+    margin: 0;
+    font-family: 'Segoe UI',serif, sans-serif;
+}
+</style>
 <body>
-    
-<form action="<?=base_url()?>Baju/AddAction" method="post"><center><table>
-    <tr>
-        <td>Merk</td>
-        <td>:</td>
-        <td><input type="text" name="merk" id="merk" placeholder="Merk"></td>
-    </tr>
-    <tr>
-        <td>Warna</td>
-        <td>:</td>
-        <td><input type="text" name="warna" id="warna" placeholder="Warna"></td>
-    </tr>
-    <tr>
-        <td>Ukuran</td>
-        <td>:</td>
-        <td><input type="text" name="ukuran" id="ukuran"  placeholder="Ukuran"></td>
-    </tr>
-    <tr>
-        <td>Stock</td>
-        <td>:</td>
-        <td><input type="text" name="stock" id="stock"  placeholder="Stock"></td>
-    </tr>
-    <tr>
-        <td>&nbsp</td>
-        <td>&nbsp</td>
-        <td>&nbsp</td>
-    </tr>
-    <tr>
-        <td>&nbsp</td>
-        <td>&nbsp</td>
-        <td><input type="reset" value="Reset">
-        <input type="submit" value="Tambah"></td>
-    </tr>
-</table></center></form>
+
+<div id="input">
+    <div class="header">Input Data Baju</div>
+    <center>
+        <table>
+            <form action="<?=base_url()?>Baju/AddAction" method="post">
+                <tr><td><input class="form" type="text" name="id_barang" placeholder="ID Barang" required></td></tr>
+                <tr><td><input class="form" type="text" name="merk" placeholder="Merk" required></td></tr>
+                <tr><td><input class="form" type="text" name="warna" placeholder="Warna" required></td></tr>
+                <tr><td><input class="form" type="text" name="ukuran" placeholder="Ukuran" required></td></tr>
+                <tr><td><input class="form" type="text" name="stock" placeholder="Stock" required></td></tr>
+                <tr><td><input class="submit" type="submit" name="Daftar" value="Tambah"></td></tr>
+            </form>
+        </table>
+    </center>
+</div>
 
 </body>
 </html>

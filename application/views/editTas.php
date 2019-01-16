@@ -11,42 +11,38 @@
 </head>
 <body>
     
-<form action="<?=base_url()?>Tas/EditAction" method="post"><center><table>
-    <?php foreach ($isi->result() as $value) { ?>
-        <input type="hidden" name="id" value="<?php echo $value->id ?>">
-        <tr>
-            <td>Merk</td>
-            <td>:</td>
-            <td><input type="text" name="merk" id="merk" value="<?php echo $value->merk ?>"></td>
-        </tr>
-        <tr>
-            <td>Warna</td>
-            <td>:</td>
-            <td><input type="text" name="warna" id="warna" value="<?php echo $value->warna ?>"></td>
-        </tr>
-        <tr>
-            <td>Ukuran</td>
-            <td>:</td>
-            <td><input type="text" name="ukuran" id="ukuran" value="<?php echo $value->ukuran ?>"></td>
-        </tr>
-        <tr>
-            <td>Stock</td>
-            <td>:</td>
-            <td><input type="text" name="stock" id="stock" value="<?php echo $value->stock ?>"></td>
-        </tr>
-        <tr>
-            <td>&nbsp</td>
-            <td>&nbsp</td>
-            <td>&nbsp</td>
-        </tr>
-        <tr>
-            <td>&nbsp</td>
-            <td>&nbsp</td>
-            <td><input type="reset" value="Reset">
-            <input type="submit" value="Edit"></td>
-        </tr>
-    <?php } ?>
-</table></center></form>
+<div id="input">
+    <div class="header">Edit Data Tas</div>    
+    <form action="<?=base_url()?>Tas/EditAction" method="post"><center><table>
+        <?php foreach ($isi->result() as $value) { ?>
+            <input type="hidden" name="id" value="<?php echo $value->id ?>">
+            <tr>
+                <td>Merk</td>
+                <td>:</td>
+                <td><input class="form" type="text" name="merk" class="form" value="<?php echo $value->merk ?>" required></td>
+            </tr>
+            <tr>
+                <td>Warna</td>
+                <td>:</td>
+                <td><input class="form" type="text" name="warna" class="form" value="<?php echo $value->warna ?>" required></td>
+            </tr>
+            <tr>
+                <td>Ukuran</td>
+                <td>:</td>
+                <td><input class="form" type="text" name="ukuran" class="form" value="<?php echo $value->ukuran ?>" required></td>
+            </tr>
+            <tr>
+                <td>Stock</td>
+                <td>:</td>
+                <td><input class="form" type="text" name="stock" class="form" value="<?php echo $value->stock ?>" required></td>
+            </tr>
+        <?php } ?>
+    </table>
+    <div class="box-btn">
+        <input class="submit-edit" type="submit" name="Daftar" value="Edit">
+        <input class="submit-edit" type="reset" name="Daftar" value="Reset">
+    </div></center></form>
+</div>
 
 </body>
 </html>

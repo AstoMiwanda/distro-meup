@@ -3,8 +3,28 @@
 /**
 * 
 */
-class M_user extends CI_Model
+class M_user extends M_Database
 {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('M_Database');
+		//Load Dependencies
+
+	}
+
+	public function CreatePagging($viewName, $data = '', $total_laman = '', $laman_sekarang = ''){
+		$this->load->view($viewName);
+	}
+
+	public function get_limit($table, $limitStart, $limitCount, $desc = '') {
+		if ($desc != '') {
+			$data = self::query("SELECT * FROM $table ORDER BY $desc DESC LIMIT $limitStart,$limitCount");
+		}else {
+			$data = self::query("SELECT * FROM $table LIMIT $limitStart,$limitCount");
+		}
+		return $data;
+	}
 
 	public function get_data($table)
 	{
