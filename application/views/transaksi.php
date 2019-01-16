@@ -189,10 +189,65 @@
     </section>
 
     <!-- Main content -->
-    <div class="row">
+    <div class="row" style="padding: 25px 15px 0 15px;">
         <div class="col-md-6">
             <!-- Horizontal Form -->
+        <?php if (isset($input)) {
+        foreach ($input['input']->result() as $value){ ?>
           <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Horizontal Form</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form action="<?=base_url('Transaksi/AddKeranjang')?>" method="post" class="form-horizontal">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">ID_Barang</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="id_barang" id="id_barang" value="<?php echo $value->kode ?>" style="width: 50%;" onchange="idChange(this.value)">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Nama Barang</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="<?php echo $value->merk ?>" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Harga Satuan</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control input-readonly" name="harga_barang" id="harga_barang" value="<?php echo $value->harga ?>" readonly>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Jumlah</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" name="jumlah" id="jumlah" value="" onchange="jmlChange(this.value)"  required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Sub Total</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" name="subtotal" id="subtotal" class="input-readonly" value="" readonly>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-info pull-right">Sign in</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+          <!-- /.box -->
+        <?php }}elseif(!isset($input)){ ?>
+            <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Horizontal Form</h3>
             </div>
@@ -201,38 +256,50 @@
             <form class="form-horizontal">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">ID_Barang</label>
 
                   <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <input type="text" class="form-control" name="id_barang" id="id_barang" value="" style="width: 50%;" onchange="idChange(this.value)">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Nama Barang</label>
 
                   <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    <input type="text" class="form-control" name="nama_barang" id="nama_barang" value="" required>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> Remember me
-                      </label>
-                    </div>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Harga Satuan</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control input-readonly" name="harga_barang" id="harga_barang" value="" readonly>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Jumlah</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" name="jumlah" id="jumlah" value="" onchange="jmlChange(this.value)"  required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Sub Total</label>
+
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" name="subtotal" id="subtotal" class="input-readonly" value="" readonly>
                   </div>
                 </div>
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                <button type="submit" class="btn btn-info pull-right">Tambah Keranjang</button>
               </div>
               <!-- /.box-footer -->
             </form>
           </div>
           <!-- /.box -->
+          <?php } ?>
         </div>
 
         <div class="col-md-6">
@@ -243,23 +310,30 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal">
+            <form action="<?=base_url()?>Transaksi/AddTransaksi" method="POST" class="form-horizontal">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                  <label for="inputEmail3" class="col-sm-2 control-label">Total (Rp)</label>
 
                   <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <input type="text" class="form-control" name="total_belanja" id="total_belanja" value="<?php echo $total_belanja ?>" class="input-readonly" readonly>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                  <label for="inputPassword3" class="col-sm-2 control-label">Bayar (Rp)</label>
 
                   <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    <input type="text" class="form-control" name="bayar" id="bayar" onchange="bayarOnchange(this.value)" required>
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Kembali (Rp)</label>
+
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="kembalian" id="kembalian" value="0" class="input-readonly" readonly>
+                  </div>
+                </div>
+                <!-- <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                       <label>
@@ -267,12 +341,12 @@
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                <!-- <button type="submit" class="btn btn-default">Cancel</button> -->
+                <button type="submit" class="btn btn-info pull-right">Transaksi</button>
               </div>
               <!-- /.box-footer -->
             </form>
@@ -280,104 +354,6 @@
           <!-- /.box -->
         </div>
     </div>
-    <div class="data-input-transaksi">
-        <form action="<?=base_url('Transaksi/AddKeranjang')?>" method="post" class="input-transaksi">
-
-            <?php if (isset($input)) {
-                foreach ($input['input']->result() as $value){ ?>
-                    <table id="isi">
-                        <tr>
-                            <td>Id Barang</td>
-                            <td>:</td>
-                            <td><input type="text" name="id_barang" id="id_barang" value="<?php echo $value->kode ?>" style="width: 50%;" onchange="idChange(this.value)"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Nama Barang</td>
-                            <td>:</td>
-                            <td><input type="text" name="nama_barang" id="nama_barang" value="<?php echo $value->merk ?>" required></td>
-                        </tr>
-
-                        <tr>
-                            <td>Harga Satuan</td>
-                            <td>:</td>
-                            <td><input type="number" name="harga_barang" id="harga_barang" value="<?php echo $value->harga ?>" class="input-readonly" readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td>Jumlah</td>
-                            <td>:</td>
-                            <td><input type="number" name="jumlah" id="jumlah" value="" onchange="jmlChange(this.value)"  required></td>
-                        </tr>
-
-                        <tr>
-                            <td>Sub Total</td>
-                            <td>:</td>
-                            <td><input type="number" name="subtotal" id="subtotal" class="input-readonly" value="" readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td><button type="submit" class="btn-submit" readonly>Tambah</button></td>
-                        </tr>
-                    </table>
-                <?php }}elseif(!isset($input)){ ?>
-                    <table id="kosong">
-                        <tr>
-                            <td>Id Barang</td>
-                            <td>:</td>
-                            <td><input type="text" name="id_barang" id="id_barang" value="" style="width: 50%;" onchange="idChange(this.value)"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Nama Barang</td>
-                            <td>:</td>
-                            <td><input type="text" name="nama_barang" id="nama_barang" required></td>
-                        </tr>
-
-                        <tr>
-                            <td>Harga Satuan</td>
-                            <td>:</td>
-                            <td><input type="number" name="harga_barang" id="harga_barang" value="" class="input-readonly" readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td>Jumlah</td>
-                            <td>:</td>
-                            <td><input type="number" name="jumlah" id="jumlah" onchange="jmlChange(this.value)" required></td>
-                        </tr>
-
-                        <tr>
-                            <td>Sub Total</td>
-                            <td>:</td>
-                            <td><input type="number" name="subtotal" id="subtotal" class="input-readonly" value="" readonly></td>
-                        </tr>
-
-                        <tr>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td><button type="submit" class="btn-submit" readonly>Tambah</button></td>
-                        </tr>
-                    </table>
-                <?php } ?>
-            </form>
-
-            <div class="total-transaksi" style="width: 30%;">
-                <form action="<?=base_url()?>Transaksi/AddTransaksi" method="POST">
-                    <p>Total (Rp) :</p>
-                    <input type="text" name="total_belanja" id="total_belanja" value="<?php echo $total_belanja ?>" class="input-readonly" readonly>
-
-                    <p>Bayar (Rp) :</p>
-                    <input type="text" name="bayar" id="bayar" onchange="bayarOnchange(this.value)" required>
-
-                    <p>Kembali (Rp) :</p>
-                    <input type="text" name="kembalian" id="kembalian" value="0" class="input-readonly" readonly>
-
-                    <button type="submit">Transaksi</button>
-                </form>
-            </div>
-        </div>
     <section id="tables-barang" class="content">
       <div class="row">
         <div class="col-xs-12">
