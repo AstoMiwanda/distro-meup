@@ -32,10 +32,11 @@ class Sepatu extends CI_Controller
 	//Add Form
 	public function ViewAdd()
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
-		$this->load->view('addSepatu');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_user = array('user' => $user);
+
+		$this->load->view('addSepatu', $data_user);
 	}
 
 	//Add Data
@@ -61,13 +62,14 @@ class Sepatu extends CI_Controller
 	//Edit Form
 	public function ViewEdit($id = '')
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+
 		$this->M_user->where_data($id);
 		$data['isi'] = $this->M_user->get_data('tsepatu');
+		$data_user = array('user' => $user, 'isi' =>$data);
 
-		$this->load->view('editSepatu',$data);
+		$this->load->view('editSepatu', $data_user);
 	}
 
 	//Edit Data

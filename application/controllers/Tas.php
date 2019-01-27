@@ -32,10 +32,11 @@ class Tas extends CI_Controller
 	//Add Form
 	public function ViewAdd()
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
-		$this->load->view('addTas');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_user = array('user' => $user);
+
+		$this->load->view('addTas', $data_user);
 	}
 
 	//Add Data
@@ -61,13 +62,14 @@ class Tas extends CI_Controller
 	//Edit Form
 	public function ViewEdit($id = '')
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+
 		$this->M_user->where_data($id);
 		$data['isi'] = $this->M_user->get_data('ttas');
+		$data_user = array('user' => $user, 'isi' =>$data);
 
-		$this->load->view('editTas',$data);
+		$this->load->view('editTas', $data_user);
 	}
 
 	//Edit Data

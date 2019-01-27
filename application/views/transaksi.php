@@ -14,7 +14,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-  <title>Stock Barang</title>
+  <title>DM | Keranjang</title>
   <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/responsive.css">
   <!-- Tell the browser to be responsive to screen width -->
@@ -179,7 +179,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Data Barang</small>
+        <small>Keranjanga Transaksi</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -196,7 +196,7 @@
         foreach ($input['input']->result() as $value){ ?>
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Horizontal Form</h3>
+              <h3 class="box-title">Data Barang</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -249,7 +249,7 @@
         <?php }}elseif(!isset($input)){ ?>
             <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Horizontal Form</h3>
+              <h3 class="box-title">Data Barang</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -306,7 +306,7 @@
             <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Horizontal Form</h3>
+              <h3 class="box-title">Data Pembayaran</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -371,7 +371,8 @@
                     <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Harga Total</th>
-                    <th colspan="2">Aksi</th>
+                    <th>Edit</th>
+                    <th>Hapus</th>
                 </tr>
                 </thead>
                 <tbody>

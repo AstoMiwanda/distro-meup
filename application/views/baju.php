@@ -1,3 +1,9 @@
+
+<?php $admin = false; foreach ($user->result() as $value_user) {
+  if ($value_user->level == 'Admin') { 
+    $admin = true;
+}} ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,7 +209,8 @@
                 	<th>Stock</th>
                 	<?php foreach ($user->result() as $value) {
                 		if ($value->level == 'Admin') { ?>
-                			<th colspan="2">Aksi</th>
+                			<th>Edit</th>
+                      <th>Hapus</th>
                 	<?php }} ?>
                 </tr>
                 </thead>
@@ -217,10 +224,10 @@
             			<td><?php echo $value->warna;?></td>
             			<td><?php echo $value->ukuran;?></td>
             			<td><?php echo $value->stock;?></td>
-            			<?php foreach ($user->result() as $value) {
-            				if ($value->level == 'Admin') { ?>
-            					<td><a href="<?=base_url()?>Baju/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
-            					<td><a href="<?=base_url()?>Baju/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
+            			<?php foreach ($user->result() as $value_user) {
+            				if ($value_user->level == 'Admin') { ?>
+            					<td><a href="<?=base_url()?>Baju/ViewEdit/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+            					<td><a href="<?=base_url()?>Baju/Delete/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
             			<?php }} ?>
             			</tr>
             	<?php }?>
@@ -262,14 +269,6 @@
 <script>
   $(function () {
     $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
   })
 </script>
 </body>

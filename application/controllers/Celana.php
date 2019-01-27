@@ -29,7 +29,10 @@ class Celana extends CI_Controller
 	//Add Form
 	public function ViewAdd()
 	{
-		$this->load->view('addCelana');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_user = array('user' => $user);
+		$this->load->view('addCelana', $data_user);
 	}
 
 	//Add Data
@@ -52,10 +55,14 @@ class Celana extends CI_Controller
 	//Edit Form
 	public function ViewEdit($id = '')
 	{
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+
 		$this->M_user->where_data($id);
 		$data['isi'] = $this->M_user->get_data('tcelana');
+		$data_user = array('user' => $user, 'isi' =>$data);
 
-		$this->load->view('editCelana',$data);
+		$this->load->view('editCelana', $data_user);
 	}
 
 	//Edit Data

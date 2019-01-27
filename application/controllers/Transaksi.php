@@ -214,4 +214,27 @@ class Transaksi extends CI_Controller
 					'user' => $user);
 		$this->load->view('laporanTransaksi', $data);
 	}
+
+	//Cetak Struk
+	public function CetakStruk()
+	{
+		$data_struk = array('data_struk' => $this->M_Transaksi->get_data('tkeranjang'));
+
+		$this->load->view('cetakStruk', $data_struk);
+	}
+
+	//Export Data
+	public function ExportTransaksiMaster()
+	{
+		$detailTransaksi = array('detailTransaksi' => $this->M_Transaksi->get_data('ttransaksi_master'));
+
+		$this->load->view('exportTransaksiMaster', $detailTransaksi);
+	}
+
+	public function ExportTransaksiDetail()
+	{
+		$detailTransaksi = array('detailTransaksi' => $this->M_Transaksi->get_data('ttransaksi'));
+
+		$this->load->view('exportTransaksiDetail', $detailTransaksi);
+	}
 }

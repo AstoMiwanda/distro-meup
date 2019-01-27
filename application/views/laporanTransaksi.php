@@ -155,6 +155,10 @@
             <li><a href="<?=base_url()?>Celana"><i class="fa fa-circle-o"></i> Celana</a></li>
             <li><a href="<?=base_url()?>Sepatu"><i class="fa fa-circle-o"></i> Sepatu</a></li>
             <li><a href="<?=base_url()?>Tas"><i class="fa fa-circle-o"></i> Tas</a></li>
+            <?php foreach ($user->result() as $value) {
+              if ($value->level == 'Admin') { ?>
+                <li><a href="<?=base_url()?>User"><i class="fa fa-circle-o"></i> User</a></li>
+          <?php }} ?>
           </ul>
         </li>
       </ul>
@@ -183,7 +187,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table Detail Transaksi</h3>
+              <h3 class="box-title">Table Data Transaksi</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

@@ -188,7 +188,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table Stock Baju</h3>
+              <h3 class="box-title">Data Table Stock Tas</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -197,13 +197,14 @@
                 <tr>
                 	<th>No</th>
                 	<th>ID#</th>
-                	<th>Merk Baju</th>
+                	<th>Merk Tas</th>
                 	<th>Warna</th>
                 	<th>Size</th>
                 	<th>Stock</th>
                 	<?php foreach ($user->result() as $value) {
                 		if ($value->level == 'Admin') { ?>
-                			<th colspan="2">Aksi</th>
+                			<th>Edit</th>
+                      <th>Hapus</th>
                 	<?php }} ?>
                 </tr>
                 </thead>
@@ -219,8 +220,8 @@
             			<td><?php echo $value->stock;?></td>
             			<?php foreach ($user->result() as $value) {
             				if ($value->level == 'Admin') { ?>
-            					<td><a href="<?=base_url()?>Baju/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
-            					<td><a href="<?=base_url()?>Baju/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
+            					<td><a href="<?=base_url()?>Tas/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+            					<td><a href="<?=base_url()?>Tas/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
             			<?php }} ?>
             			</tr>
             	<?php }?>

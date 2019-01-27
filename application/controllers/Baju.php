@@ -54,7 +54,10 @@ class Baju extends CI_Controller
 	//Add Form
 	public function ViewAdd()
 	{
-		$this->load->view('addBaju');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_user = array('user' => $user);
+		$this->load->view('addBaju', $data_user);
 	}
 
 	//Add Data
@@ -77,10 +80,14 @@ class Baju extends CI_Controller
 	//Edit Form
 	public function ViewEdit($id = '')
 	{
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+
 		$this->M_user->where_data($id);
 		$data['isi'] = $this->M_user->get_data('tbaju');
+		$data_user = array('user' => $user, 'isi' =>$data);
 
-		$this->load->view('editBaju',$data);
+		$this->load->view('editBaju', $data_user);
 	}
 
 	//Edit Data
