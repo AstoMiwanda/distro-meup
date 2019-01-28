@@ -145,7 +145,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?=base_url()?>assets/AdminLTE/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
+            <li><a href="<?=base_url()?>Chart"><i class="fa fa-circle-o"></i> ChartJS</a></li>
           </ul>
         </li>
         <li class="treeview active">
@@ -188,7 +188,13 @@
     </section>
 
     <!-- Main content -->
-    <a href="<?=base_url()?>Baju/ViewAdd" type="button" class="btn btn-block btn-success">Tambah</a>
+    <div style="display: flex; align-items: center;">
+      <a href="<?=base_url()?>Baju/ViewAdd" type="button" class="btn btn-success">Tambah</a>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+        Upload Excel
+      </button>
+      <a href="<?=base_url()?>Baju/ExportBaju" type="button" class="btn btn-success">Download Data</a>
+    </div>
     <section id="tables-barang" class="content">
       <div class="row">
         <div class="col-xs-12">
@@ -250,6 +256,30 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Upload Excel</h4>
+      </div>
+      <form method="post" id="import_form" enctype="multipart/form-data" action="<?php echo base_url(); ?>Baju/ImportExcel">
+      <div class="modal-body">
+          <p><label>Pilih File Excel</label>
+            <input type="file" name="file" id="file" required accept=".xls, .xlsx" /></p>
+            <br />
+            <input type="checkbox" name="empty" value="empty" style="margin-right: 15px">Hapus semua data yang ada
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" name="import" value="Import" class="btn btn-primary">Import</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
 <!-- jQuery 3 -->
 <script src="<?=base_url()?>assets/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

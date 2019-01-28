@@ -10,6 +10,8 @@ class Celana extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_user');
+		$this->load->model('Excel_import_model');
+		$this->load->library('Excel');
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url('Login'));
 		}
@@ -94,5 +96,57 @@ class Celana extends CI_Controller
 		}else{
 			imap_alerts('gagal');
 		}
+	}
+
+	//Import Excel
+	public function ImportExcel()
+	{
+		if (isset($_POST['import']) && isset($_POST['empty'])) {
+			if ($_POST['empty'] == 'empty') {
+				$this->db->truncate('tcelana');
+			}
+		}
+		if(isset($_FILES["file"]["name"]))
+		{
+			$path = $_FILES["file"]["tmp_name"];
+			$object = PHPExcel_IOFactory::load($path);
+			foreach($object->getWorksheetIterator() as $worksheet)
+			{
+				$highestRow = $worksheet->getHighestRow();
+				$highestColumn = $worksheet->getHighestColumn();
+				for($row=2; $row<$highestRow; $row++)
+				{
+					$kode = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+					$merk = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+					$warna = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$ukuran = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+					$stock = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+					$harga = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+					$data[] = array(
+						'kode' => $kode,
+						'merk' => $merk,
+						'warna' => $warna,
+						'ukuran' => $ukuran,
+						'stock' => $stock,
+						'harga' => $harga
+					);
+				}
+			}
+			$sukses = $this->Excel_import_model->insert('tcelana',$data);
+			if (!$sukses) {
+				echo "<script>alert('Data Imported successfully');
+				window.location = 'http://localhost/distro-meup/Celana'</script>";
+			}else{
+				echo "<script>alert('Data Imported failed');
+				window.location = 'http://localhost/distro-meup/Celana'</script>";
+			}
+		}
+	}
+
+	public function ExportData()
+	{
+		$data = array('data' => $this->M_user->get_data('tcelana'));
+
+		$this->load->view('exportCelana', $data);
 	}
 }
