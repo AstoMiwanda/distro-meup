@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Tambah User</small>
+        <small>Tambah Stock Barang</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,47 +24,49 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                          <h3 class="box-title">User</h3>
+                          <h3 class="box-title">Belanja Stock</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="<?=base_url()?>User/AddAction" method="post" class="form-horizontal">
+                        <form id="tambah_barang" action="<?=base_url()?>Transaksi/AddPembelianAction" method="post" class="form-horizontal">
                           <div class="box-body">
                             <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Username</label>
+                              <label for="inputEmail3" class="col-sm-3 control-label">ID Barang</label>
 
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="username" placeholder="Username"  required>
+                              <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id_barang" placeholder="ID Barang" onchange="kodeChange(this.value)" required>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                              <label for="inputPassword3" class="col-sm-3 control-label">Kategori</label>
 
-                              <div class="col-sm-10">
-                                <input type="password" name="password" placeholder="Password" class="form-control" required>
+                              <div class="col-sm-9">
+                                <select id="kategori_barang" name="kategori_barang" class="form-control">
+                                  <option value="1">(1) Baju</option>
+                                  <option value="2">(2) Celana</option>
+                                  <option value="3">(3) Sepatu</option>
+                                  <option value="4">(4) Tas</option>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Fullname</label>
+                              <label for="inputEmail3" class="col-sm-3 control-label">Jumlah</label>
 
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="fullname" placeholder="Fullname" required>
+                              <div class="col-sm-9">
+                                <input id="jumlah_barang" type="text" class="form-control" name="jumlah_barang" placeholder="Jumlah" required>
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Level</label>
+                              <label for="inputEmail3" class="col-sm-3 control-label">Total Pembelian (Rp)</label>
 
-                              <div class="col-sm-10">
-                              	<select class="form-control" name="level">
-                              		<option value="Admin">Admin</option>
-                              		<option value="User">User</option>
-                              	</select>
+                              <div class="col-sm-9">
+                                <input id="total" type="text" class="form-control" name="total" placeholder="1000000" required>
                               </div>
                             </div>
                           </div>
                           <!-- /.box-body -->
                           <div class="box-footer">
-                            <button onclick="window.location.href='<?=base_url()?>User'" class="btn btn-default">Cancel</button>
+                            <button onclick="window.location.href='<?=base_url()?>Transaksi/LaporanPembelian'" class="btn btn-default">Cancel</button>
                             <button type="submit" class="btn btn-info pull-right">Tambah</button>
                           </div>
                           <!-- /.box-footer -->
@@ -85,6 +87,6 @@
 
 <?php require_once 'template/footer.php' ?>
 <script type="text/javascript">
-  $( ".treeview-tables" ).last().addClass( "active" );
-  $( ".menu-user" ).last().addClass( "active" );
+  $( ".treeview-dashboard" ).last().addClass( "active" );
+  $( ".LaporanPembelian" ).last().addClass( "active" );
 </script>

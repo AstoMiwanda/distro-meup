@@ -13,6 +13,8 @@
 <script src="<?=base_url()?>assets/AdminLTE/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>assets/AdminLTE/dist/js/demo.js"></script>
+<!-- ChartJS -->
+<script src="<?=base_url()?>assets/AdminLTE/bower_components/chart.js/Chart.js"></script>
 <!-- page script -->
 <script>
   $(function () {

@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Data Barang</small>
+        <small>Data Transaksi</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -18,54 +18,55 @@
 
     <!-- Main content -->
     <div style="display: flex; align-items: center;">
-      <a href="<?=base_url()?>Tas/ViewAdd" type="button" class="btn btn-success">Tambah</a>
+      <a href="<?=base_url()?>Transaksi/ViewAddPembelian" type="button" class="btn btn-success">Tambah</a>
       <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
         Upload Excel
       </button>
-      <a href="<?=base_url()?>Tas/ExportData" type="button" class="btn btn-success">Download Data</a>
+      <a href="<?=base_url()?>Transaksi/ExportLaporanPembelian" type="button" class="btn btn-success">Download Data</a>
     </div>
     <section id="tables-barang" class="content">
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table Stock Tas</h3>
+              <h3 class="box-title">Table Data Transaksi</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                	<th>No</th>
-                	<th>ID#</th>
-                	<th>Merk Tas</th>
-                	<th>Warna</th>
-                	<th>Size</th>
-                	<th>Stock</th>
-                	<?php foreach ($user->result() as $value) {
-                		if ($value->level == 'Admin') { ?>
-                			<th>Edit</th>
-                      <th>Hapus</th>
-                	<?php }} ?>
+                  <th>User</th>
+                  <th>Kategori</th>
+                  <th>Kode</th>
+                  <th>Jumlah</th>
+                  <th>Total</th>
+                  <th>Tanggal</th>
                 </tr>
                 </thead>
                 <tbody>
-            	<?php $i=0; foreach ($isi['isi']->result() as $value)
-            	{ $i++;?>
-            		<tr>
-            			<td><?php echo $i;?></td>
-            			<td><?php echo $value->kode;?></td>
-            			<td><?php echo $value->merk;?></td>
-            			<td><?php echo $value->warna;?></td>
-            			<td><?php echo $value->ukuran;?></td>
-            			<td><?php echo $value->stock;?></td>
-            			<?php foreach ($user->result() as $value_user) {
-            				if ($value_user->level == 'Admin') { ?>
-            					<td><a href="<?=base_url()?>Tas/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
-            					<td><a href="<?=base_url()?>Tas/Delete/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
-            			<?php }} ?>
-            			</tr>
-            	<?php }?>
+                <?php foreach ($data->result() as $value) { ?>
+                	<tr>
+                		<td>
+                      <?php $this->M_user->where_data($value->user_id);
+                      $user = $this->M_user->get_data('tuser');
+                      foreach ($user->result() as $valueUser) {
+                        echo $valueUser->username;
+                      } ?>
+                    </td>
+                		<td>
+                      <?php $this->M_user->where_data($value->kategori);
+                      $kategori = $this->M_user->get_data('tkategori');
+                      foreach ($kategori->result() as $valueKategori) {
+                        echo $valueKategori->kategori;
+                      } ?>
+                    </td>
+                		<td><?php echo $value->kode; ?></td>
+                		<td><?php echo $value->jumlah; ?></td>
+                    <td><?php echo $value->total; ?></td>
+                		<td><?php echo $value->tanggal; ?></td>
+                	</tr>
+                <?php } ?>
                 </tfoot>
               </table>
             </div>
@@ -93,7 +94,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Upload Excel</h4>
       </div>
-      <form method="post" id="import_form" enctype="multipart/form-data" action="<?php echo base_url(); ?>Tas/ImportExcel">
+      <form method="post" id="import_form" enctype="multipart/form-data" action="<?php echo base_url(); ?>Transaksi/ImportExcelPembelian">
       <div class="modal-body">
           <p><label>Pilih File Excel</label>
             <input type="file" name="file" id="file" required accept=".xls, .xlsx" /></p>
@@ -112,6 +113,6 @@
 
 <?php require_once 'template/footer.php' ?>
 <script type="text/javascript">
-  $( ".treeview-tables" ).last().addClass( "active" );
-  $( ".menu-tas" ).last().addClass( "active" );
+	$( ".treeview-dashboard" ).last().addClass( "active" );
+	$( ".LaporanPembelian" ).last().addClass( "active" );
 </script>

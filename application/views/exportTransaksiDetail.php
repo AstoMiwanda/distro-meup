@@ -13,7 +13,7 @@
 <table border="1" style="width: 100%">
 	<tr>
 		<th>No</th>
-		<th>User_ID</th>
+		<th>User</th>
 		<th>Kode Nota</th>
 		<th>Merk</th>
 		<th>Harga</th>
@@ -25,7 +25,13 @@
 	foreach ($detailTransaksi->result() as $value) {?>
 		<tr>
 			<td><?php echo $no++; ?></td>
-			<td><?php echo $value->user_id ?></td>
+			<td>
+				<?php $this->M_user->where_data($value->user_id);
+                      $user = $this->M_user->get_data('tuser');
+                      foreach ($user->result() as $valueUser) {
+                        echo $valueUser->username;
+                } ?>
+            </td>
 			<td><?php echo $value->kode ?></td>
 			<td><?php echo $value->merk ?></td>
 			<td><?php echo $value->harga ?></td>

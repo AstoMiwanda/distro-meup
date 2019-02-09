@@ -56,21 +56,34 @@ class Baju extends CI_Controller
 	//Add Form
 	public function ViewAdd()
 	{
+		$data['isi'] = $this->M_user->get_data('tbaju');
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
-		$data_user = array('user' => $user);
+		$data_user = array('user' => $user, 'isi' =>$data);
 		$this->load->view('addBaju', $data_user);
 	}
 
 	//Add Data
 	public function AddAction()
 	{
+		$data_barang = array('kode' => $this->input->post('id_barang'));
+		$cek = $this->M_user->cek_login('tbaju', $data_barang)->num_rows();
 		$data = array('kode' => $this->input->post('id_barang'),
 						'merk' => $this->input->POST('merk'),
 						'warna' => $this->input->POST('warna'),
 						'ukuran' => $this->input->POST('ukuran'),
 						'stock' => $this->input->POST('stock') );
-		$post = $this->M_user->create('tbaju', $data);
+		if($cek == 1){
+			$id = $this->input->POST('id_barang');
+			$data = array('merk' => $this->input->POST('merk'),
+							'warna' => $this->input->POST('warna'),
+							'ukuran' => $this->input->POST('ukuran'),
+							'stock' => $this->input->POST('stock') );
+
+			$post = $this->M_user->updateBarang('tbaju', $id, $data);
+		}else{
+			$post = $this->M_user->create('tbaju', $data);
+		}
 
 		if ($post) {
 			redirect(base_url('Baju'));
@@ -139,7 +152,7 @@ class Baju extends CI_Controller
 			{
 				$highestRow = $worksheet->getHighestRow();
 				$highestColumn = $worksheet->getHighestColumn();
-				for($row=2; $row<$highestRow; $row++)
+				for($row=2; $row<=$highestRow; $row++)
 				{
 					$kode = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
 					$merk = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
@@ -147,13 +160,15 @@ class Baju extends CI_Controller
 					$ukuran = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
 					$stock = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
 					$harga = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+					$kategori_id = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
 					$data[] = array(
 						'kode' => $kode,
 						'merk' => $merk,
 						'warna' => $warna,
 						'ukuran' => $ukuran,
 						'stock' => $stock,
-						'harga' => $harga
+						'harga' => $harga,
+						'kategori_id' => $kategori_id
 					);
 				}
 			}

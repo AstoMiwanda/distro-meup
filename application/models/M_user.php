@@ -55,6 +55,20 @@ class M_user extends M_Database
 		return $this->db->update($table, $data);
 	}
 
+	public function updateBarang($table, $id, $data)
+	{
+		$this->db->get($table);
+		$this->db->where('kode', $id);
+		return $this->db->update($table, $data);
+	}
+
+	public function updateUser($table, $id, $data)
+	{
+		$this->db->get($table);
+		$this->db->where('username', $id);
+		return $this->db->update($table, $data);
+	}
+
 	public function create($table, $data)
 	{
 		return $this->db->insert($table, $data);

@@ -24,6 +24,7 @@ class Login extends CI_Controller
 	public function loginAction(){
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
+		// $password = $this->input->post('password');
 		$where = array('username' => $username, 'password' => $password);
 		$cek = $this->M_user->cek_login('tuser', $where)->num_rows();
 		$data = $this->M_user->cek_login('tuser', $where);

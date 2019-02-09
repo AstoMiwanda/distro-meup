@@ -9,9 +9,12 @@ class Transaksi extends CI_Controller
 
 	function __construct()
 	{
+		date_default_timezone_set("Asia/Jakarta");
 		parent::__construct();
 		$this->load->model('M_Transaksi');
 		$this->load->model('M_user');
+		$this->load->model('Excel_import_model');
+		$this->load->library('Excel');
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url('Login'));
 		}
@@ -101,6 +104,7 @@ class Transaksi extends CI_Controller
 			redirect(base_url('Login'));
 		}
 		$data = array('kode' => $this->input->post('id_barang'),
+			'kategori' => $this->input->post('kategori_barang'),
 			'merk' => $this->input->post('nama_barang'),
 			'harga' => $this->input->post('harga_barang'),
 			'jumlah' => $this->input->post('jumlah'),
@@ -130,23 +134,20 @@ class Transaksi extends CI_Controller
 		}
 	}
 
-	public function EditView($kode='')
+	public function EditView()
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
 		$kode = $this->input->POST('kode');
-		$this->M_Transaksi->getId($kode);
-		$data['input'] = $this->M_Transaksi->get_data('tkeranjang');
+		$this->db->where('kode',$kode);
+		$data = array('data' => $this->M_Transaksi->get_data('tkeranjang'),
+					'user' => $user);
 		$this->load->view('editkeranjang', $data);
 	}
 
-	public function Edit()
+	public function EditAction()
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
-		$kode = $this->input->POST('id_barang');
+		$kode = $this->input->POST('kode');
 		$data = array('merk' => $this->input->POST('nama_barang'),
 			'harga' => $this->input->POST('harga_barang'),
 			'jumlah' => $this->input->POST('jumlah'),
@@ -154,7 +155,7 @@ class Transaksi extends CI_Controller
 		$edit = $this->M_Transaksi->update('tkeranjang', $kode, $data);
 		if ($edit) {
 			echo "<script>";
-			echo "alert('Delete Sukses')";
+			echo "alert('Update Sukses')";
 			echo "</script>";
 			redirect(base_url('Transaksi'));
 		}else{
@@ -180,11 +181,12 @@ class Transaksi extends CI_Controller
 		// $this->M_Transaksi->insertTransaksi('user_id', $user_id);
 		$this->M_Transaksi->copyTable('tkeranjang', 'ttransaksi', $user_id);
 		$this->M_Transaksi->emptyTable('tkeranjang');
-		$this->M_Transaksi->insert('ttransaksi_master', $data_transaksi_master);
-		echo $total_transaksi;
-		echo $bayar;
-		echo $tanggal_transaksi;
-		echo $kode_nota;
+		$sukses = $this->M_Transaksi->insert('ttransaksi_master', $data_transaksi_master);
+		if ($sukses) {
+			redirect(base_url('Transaksi'));
+		}else{
+			confirm("Add User Gagal !!");
+		}
 	}
 
 	//Detail Transaksi
@@ -236,5 +238,108 @@ class Transaksi extends CI_Controller
 		$detailTransaksi = array('detailTransaksi' => $this->M_Transaksi->get_data('ttransaksi'));
 
 		$this->load->view('exportTransaksiDetail', $detailTransaksi);
+	}
+
+	public function ExportLaporanPembelian()
+	{
+		$detailTransaksi = array('pembelian' => $this->M_Transaksi->get_data('tpembelian'));
+
+		$this->load->view('exportPembelian', $detailTransaksi);
+	}
+
+	//Import Excel
+	public function ImportExcelPembelian()
+	{
+		$user_id = $this->session->userdata('id');
+		if (isset($_POST['import']) && isset($_POST['empty'])) {
+			if ($_POST['empty'] == 'empty') {
+				$this->db->truncate('tbaju');
+			}
+		}
+		if(isset($_FILES["file"]["name"]))
+		{
+			$path = $_FILES["file"]["tmp_name"];
+			$object = PHPExcel_IOFactory::load($path);
+			foreach($object->getWorksheetIterator() as $worksheet)
+			{
+				$highestRow = $worksheet->getHighestRow();
+				$highestColumn = $worksheet->getHighestColumn();
+				for($row=2; $row<=$highestRow; $row++)
+				{
+					$kategori = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+					$kode = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+					$jumlah = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$total = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+					$tanggal = date("Y/m/d");
+					$data[] = array(
+						'user_id' => $user_id,
+						'kategori' => $kategori,
+						'kode' => $kode,
+						'jumlah' => $jumlah,
+						'total' => $total,
+						'tanggal' => $tanggal
+					);
+				}
+			}
+			$sukses = $this->Excel_import_model->insert('tpembelian',$data);
+			if (!$sukses) {
+				echo "<script>alert('Data Imported successfully');
+				window.location = 'http://localhost/distro-meup/Transaksi/LaporanPembelian'</script>";
+			}else{
+				echo "<script>alert('Data Imported failed');
+				window.location = 'http://localhost/distro-meup/Transaksi/LaporanPembelian'</script>";
+			}
+		}
+	}
+
+	public function LaporanPembelian()
+	{
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data = array('data' => $this->db->get('tpembelian'),
+					'user' => $user);
+		$this->load->view('laporanPembelian', $data);
+	}
+
+	public function ViewAddPembelian()
+	{
+		$data['isi'] = $this->M_user->get_data('tpembelian');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_user = array('user' => $user, 'isi' =>$data);
+		$this->load->view('addPembelian', $data_user);
+	}
+
+	public function AddPembelianAction($value='')
+	{
+		$user_id = $this->session->userdata('id');
+		$data_barang = array('kode' => $this->input->post('id_barang'));
+		$tanggal_pembelian = date("Y/m/d");
+		$cek = $this->M_user->cek_login('tpembelian', $data_barang)->num_rows();
+		$data = array('user_id' => $user_id,
+						'kode' => $this->input->POST('id_barang'),
+						'kategori' => $this->input->POST('kategori_barang'),
+						'jumlah' => $this->input->POST('jumlah_barang'),
+						'total' => $this->input->POST('total'),
+						'tanggal' => $tanggal_pembelian );
+		if($cek == 1){
+			$id = $this->input->POST('id_barang');
+			$data = array('user_id' => $user_id,
+						'kode' => $this->input->POST('id_barang'),
+						'kategori' => $this->input->POST('kategori_barang'),
+						'jumlah' => $this->input->POST('jumlah_barang'),
+						'total' => $this->input->POST('total'),
+						'tanggal' => $tanggal_pembelian );
+
+			$post = $this->M_user->updateBarang('tpembelian', $id, $data);
+		}else{
+			$post = $this->M_user->create('tpembelian', $data);
+		}
+
+		if ($post) {
+			redirect(base_url('Transaksi/LaporanPembelian'));
+		}else{
+			imap_alerts('gagal');
+		}
 	}
 }

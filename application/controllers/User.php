@@ -41,14 +41,24 @@ class User extends CI_Controller
 	//Add Data
 	public function AddAction()
 	{
-		if($this->session->userdata('status') != "login"){
-			redirect(base_url('Login'));
-		}
+		$data_username = array('username' => $this->input->post('username'));
+		$cek = $this->M_user->cek_login('tuser', $data_username)->num_rows();
 		$data = array('username' => $this->input->POST('username'),
 						'password' => md5($this->input->POST('password')),
 						'fullname' => $this->input->POST('fullname'),
 						'level' => $this->input->POST('level') );
-		$post = $this->M_user->create('tuser', $data);
+
+		if($cek == 1){
+			$id = $this->input->POST('username');
+			$data = array('username' => $this->input->POST('username'),
+						'password' => md5($this->input->POST('password')),
+						'fullname' => $this->input->POST('fullname'),
+						'level' => $this->input->POST('level') );
+
+			$post = $this->M_user->updateUser('tuser', $id, $data);
+		}else{
+			$post = $this->M_user->create('tuser', $data);
+		}
 
 		if ($post) {
 			redirect(base_url('User'));
