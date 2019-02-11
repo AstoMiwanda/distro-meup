@@ -6,13 +6,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        ChartJS
-        <small>Preview sample</small>
+        Diagram
+        <small>Data Transaksi</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Charts</a></li>
-        <li class="active">ChartJS</li>
+        <li class="active">Transaksi</li>
       </ol>
     </section>
 
@@ -43,7 +43,7 @@
           <!-- DONUT CHART -->
           <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">Chart Barang Terjual</h3>
+              <h3 class="box-title">Barang Terjual</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -64,7 +64,7 @@
           <!-- LINE CHART -->
           <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Chart Penjualan dan Pembelian</h3>
+              <h3 class="box-title">Penjualan dan Pembelian</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

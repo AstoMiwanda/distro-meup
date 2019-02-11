@@ -30,6 +30,7 @@
                 <thead>
                 <tr>
                   <th>User</th>
+                  <th>Kategori</th>
                   <th>Kode Barang</th>
                   <th>Merk</th>
                   <th>Harga</th>
@@ -45,6 +46,13 @@
                       $user = $this->M_user->get_data('tuser');
                       foreach ($user->result() as $valueUser) {
                         echo $valueUser->username;
+                      } ?>
+                    </td>
+                    <td>
+                      <?php $this->M_user->where_data($value->kategori);
+                      $kategori = $this->M_user->get_data('tkategori');
+                      foreach ($kategori->result() as $valueKategori) {
+                        echo $valueKategori->kategori;
                       } ?>
                     </td>
                 		<td><?php echo $value->kode; ?></td>

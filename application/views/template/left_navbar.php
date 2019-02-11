@@ -37,7 +37,7 @@
                 </span>
           </a>
           <ul class="treeview-menu">
-            <li class="menu-charts"><a href="<?=base_url()?>Chart"><i class="fa fa-circle-o"></i> Chart Dashboard</a></li>
+            <li class="menu-charts"><a href="<?=base_url()?>Chart"><i class="fa fa-circle-o"></i> Transaksi</a></li>
           </ul>
         </li>
         <li class="treeview treeview-tables">
