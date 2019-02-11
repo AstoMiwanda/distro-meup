@@ -39,7 +39,7 @@ class Transaksi extends CI_Controller
 				$barang['input'] = $this->M_Transaksi->get_data('tbaju');
 				$count_row = $barang['input']->num_rows();
 				if ($count_row == 1) {
-					$adabarang = 4;
+					$adabarang = 5;
 				}else{$adabarang++;}
 			}
 			$this->M_Transaksi->getId($data);
@@ -47,7 +47,7 @@ class Transaksi extends CI_Controller
 				$barang['input'] = $this->M_Transaksi->get_data('tcelana');
 				$count_row = $barang['input']->num_rows();
 				if ($count_row >= 1) {
-					$adabarang = 4;
+					$adabarang = 5;
 				}else{$adabarang++;}
 			}
 			$this->M_Transaksi->getId($data);
@@ -55,7 +55,7 @@ class Transaksi extends CI_Controller
 				$barang['input'] = $this->M_Transaksi->get_data('tsepatu');
 				$count_row = $barang['input']->num_rows();
 				if ($count_row == 1) {
-					$adabarang = 4;
+					$adabarang = 5;
 				}else{$adabarang++;}
 			}
 			$this->M_Transaksi->getId($data);
@@ -63,22 +63,22 @@ class Transaksi extends CI_Controller
 				$barang['input'] = $this->M_Transaksi->get_data('ttas');
 				$count_row = $barang['input']->num_rows();
 				if ($count_row == 1) {
-					$adabarang = 4;
+					$adabarang = 5;
 				}else{$adabarang++;}
 			}
 		}
 
-		if ($adabarang == 4 && $data_keranjang != '') {
+		if ($adabarang == 5 && $data_keranjang != '') {
 			$data_transaksi = array('input' => $barang,
 				'keranjang' => $data_keranjang,
 				'user' => $user );
 			$this->load->view('transaksi', $data_transaksi);
 
-		}elseif ($adabarang == 4 && $data_keranjang == '') {
+		}elseif ($adabarang == 5 && $data_keranjang == '') {
 			$data_transaksi = array('input' => $barang, 'user' => $user);
 			$this->load->view('transaksi', $data_transaksi);
 
-		}elseif ($adabarang != 4 && $data_keranjang != '') {
+		}elseif ($adabarang != 5 && $data_keranjang != '') {
 			$data_transaksi = array('keranjang' => $data_keranjang, 'user' => $user);
 			$this->load->view('transaksi', $data_transaksi);
 		}

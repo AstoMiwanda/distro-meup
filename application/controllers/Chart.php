@@ -53,11 +53,12 @@ class Chart extends CI_Controller
 		'num_tas' => $num_tas );
 
 		//Pembelian
+		$now_year = date('Y');
 		for ($i=1; $i <= 12 ; $i++) { 
 			if ($i<10) {
-				$query = "SELECT `total` FROM `tpembelian` WHERE `tanggal` LIKE '%-0$i-%'";
+				$query = "SELECT `total` FROM `tpembelian` WHERE `tanggal` LIKE '$now_year-0$i-%'";
 			}else{
-				$query = "SELECT `total` FROM `tpembelian` WHERE `tanggal` LIKE '%-$i-%'";
+				$query = "SELECT `total` FROM `tpembelian` WHERE `tanggal` LIKE '$now_year-$i-%'";
 			}
         	$data_pembelian[$i] = $this->db->query($query);
 		}
