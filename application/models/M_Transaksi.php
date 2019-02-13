@@ -73,7 +73,7 @@ class M_Transaksi extends CI_Model
 	}
 
 	public function KodeGenerate() { 
-	    $chars = "023456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+	    $chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
 	    srand((double)microtime()*1000000);
 	    $i = 0;
 	    $pass = '' ;

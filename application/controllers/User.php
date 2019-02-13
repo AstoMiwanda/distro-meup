@@ -44,14 +44,14 @@ class User extends CI_Controller
 		$data_username = array('username' => $this->input->post('username'));
 		$cek = $this->M_user->cek_login('tuser', $data_username)->num_rows();
 		$data = array('username' => $this->input->POST('username'),
-						'password' => md5($this->input->POST('password')),
+						'password' => password_hash($this->input->POST('password'), PASSWORD_DEFAULT),
 						'fullname' => $this->input->POST('fullname'),
 						'level' => $this->input->POST('level') );
 
 		if($cek == 1){
 			$id = $this->input->POST('username');
 			$data = array('username' => $this->input->POST('username'),
-						'password' => md5($this->input->POST('password')),
+						'password' => password_hash($this->input->POST('password'), PASSWORD_DEFAULT),
 						'fullname' => $this->input->POST('fullname'),
 						'level' => $this->input->POST('level') );
 
