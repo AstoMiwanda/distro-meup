@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Edit Stock Barang</small>
+        <small>Edit Laporan Pembelian</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,54 +24,23 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                          <h3 class="box-title">Sepatu</h3>
+                          <h3 class="box-title">Laporan Pembelian</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="<?=base_url()?>Sepatu/EditAction" method="post" class="form-horizontal">
+                        <form action="<?=base_url()?>Transaksi/LaporanPembelianEditAction" method="post" class="form-horizontal">
                         <?php foreach ($isi['isi']->result() as $value) { ?>
                             <input type="hidden" name="id" value="<?php echo $value->id ?>">
                             <div class="box-body">
                             <div class="form-group">
-                              <label for="inputPassword3" class="col-sm-2 control-label">ID Barang</label>
+                              <label for="inputPassword3" class="col-sm-2 control-label">UserID</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="merk" value="<?php echo $value->kode ?>" disabled required>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputPassword3" class="col-sm-2 control-label">Merk</label>
-
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="merk" value="<?php echo $value->merk ?>" required>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Warna</label>
-
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="warna" value="<?php echo $value->warna ?>" required>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Ukuran</label>
-
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="ukuran" value="<?php echo $value->ukuran ?>" required>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
-
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" name="stock" value="<?php echo $value->stock ?>" required>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
-
-                              <div class="col-sm-10">
-                                <input id="harga_barang" type="text" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
+                                <select name="user_id" class="form-control">
+                                  <?php foreach ($all_user->result() as $value_allUser): ?>
+                                    <option value="<?php echo $value_allUser->id ?>" <?php if($this->session->userdata('id') == $value_allUser->id) {echo "selected";} ?>><?php echo '('.$value_allUser->id.') '.$value_allUser->username ?></option>
+                                  <?php endforeach ?>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group">
@@ -79,18 +48,46 @@
 
                               <div class="col-sm-10">
                                 <select name="kategori" class="form-control">
-                                  <option value="1" <?php if ($value->kategori_id == '1') {echo 'selected';} ?>>Baju</option>
-                                  <option value="2" <?php if ($value->kategori_id == '2') {echo 'selected';} ?>>Celana</option>
-                                  <option value="3" <?php if ($value->kategori_id == '3') {echo 'selected';} ?>>Sepatu</option>
-                                  <option value="4" <?php if ($value->kategori_id == '4') {echo 'selected';} ?>>Tas</option>
+                                  <option value="1" <?php if ($value->kategori == '1') {echo 'selected';} ?>>Baju</option>
+                                  <option value="2" <?php if ($value->kategori == '2') {echo 'selected';} ?>>Celana</option>
+                                  <option value="3" <?php if ($value->kategori == '3') {echo 'selected';} ?>>Sepatu</option>
+                                  <option value="4" <?php if ($value->kategori == '4') {echo 'selected';} ?>>Tas</option>
                                 </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputPassword3" class="col-sm-2 control-label">Kode</label>
+
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" name="kode" value="<?php echo $value->kode ?>" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputPassword3" class="col-sm-2 control-label">Jumlah</label>
+
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" name="jumlah" value="<?php echo $value->jumlah ?>" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Total</label>
+
+                              <div class="col-sm-10">
+                                <input type="text" class="form-control" name="total" value="<?php echo $value->total ?>" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Tanggal</label>
+
+                              <div class="col-sm-10">
+                                <input type="date" class="form-control" name="tanggal" value="<?php echo $value->tanggal ?>" required>
                               </div>
                             </div>
                           </div>
                           <?php } ?>
                           <!-- /.box-body -->
                           <div class="box-footer">
-                            <button onclick="window.location.href='<?=base_url()?>Sepatu'" class="btn btn-default">Cancel</button>
+                            <button type="reset" onclick="window.location.href='<?=base_url()?>Transaksi/LaporanPembelian'" class="btn btn-default">Cancel</button>
                             <button type="submit" class="btn btn-info pull-right">Edit</button>
                           </div>
                           <!-- /.box-footer -->
@@ -111,6 +108,6 @@
 
 <?php require_once 'template/footer.php' ?>
 <script type="text/javascript">
-  $( ".treeview-tables" ).last().addClass( "active" );
-  $( ".menu-sepatu" ).last().addClass( "active" );
+  $( ".treeview-dashboard" ).last().addClass( "active" );
+  $( ".LaporanPembelian" ).last().addClass( "active" );
 </script>

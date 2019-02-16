@@ -55,7 +55,12 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Ukuran</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="ukuran" placeholder="Ukuran" required>
+                                <select id="ukuran_barang" name="ukuran" class="form-control">
+                                  <option value="S">Kecil (S)</option>
+                                  <option value="M">Sedang (M)</option>
+                                  <option value="L">Besar (L)</option>
+                                  <option value="XL">Ekstra Besar (XL)</option>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group">
@@ -63,6 +68,25 @@
 
                               <div class="col-sm-10">
                                 <input type="text" class="form-control" name="stock" placeholder="Stock" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
+
+                              <div class="col-sm-10">
+                                <input id="harga_barang" type="text" class="form-control" name="harga" placeholder="Harga" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Kategori</label>
+
+                              <div class="col-sm-10">
+                                <select name="kategori" class="form-control">
+                                  <option value="1">Baju</option>
+                                  <option value="2">Celana</option>
+                                  <option value="3">Sepatu</option>
+                                  <option value="4">Tas</option>
+                                </select>
                               </div>
                             </div>
                           </div>

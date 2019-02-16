@@ -36,17 +36,23 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>No</th>
                   <th>User</th>
                   <th>Kategori</th>
                   <th>Kode</th>
                   <th>Jumlah</th>
                   <th>Total</th>
                   <th>Tanggal</th>
+                  <?php if ($level_user == 'Admin') { ?>
+                      <th>Edit</th>
+                      <th>Hapus</th>
+                  <?php } ?>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($data->result() as $value) { ?>
+                <?php $i=0; foreach ($data->result() as $value) { $i++; ?>
                 	<tr>
+                    <td><?php echo $i; ?></td>
                 		<td>
                       <?php $this->M_user->where_data($value->user_id);
                       $user = $this->M_user->get_data('tuser');
@@ -65,6 +71,10 @@
                 		<td><?php echo $value->jumlah; ?></td>
                     <td><?php echo $value->total; ?></td>
                 		<td><?php echo $value->tanggal; ?></td>
+                    <?php if ($level_user == 'Admin') { ?>
+                      <td><a href="<?=base_url()?>Transaksi/viewEditLaporanPembelian/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+                      <td><a href="<?=base_url()?>Transaksi/deleteLaporanPembelian/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
+                    <?php } ?>
                 	</tr>
                 <?php } ?>
                 </tfoot>

@@ -42,6 +42,7 @@
                 	<th>Warna</th>
                 	<th>Size</th>
                 	<th>Stock</th>
+                  <th>Harga (Rp)</th>
                 	<?php foreach ($user->result() as $value) {
                 		if ($value->level == 'Admin') { ?>
                 			<th>Edit</th>
@@ -59,6 +60,7 @@
             			<td><?php echo $value->warna;?></td>
             			<td><?php echo $value->ukuran;?></td>
             			<td><?php echo $value->stock;?></td>
+                  <td><?php echo $value->harga;?></td>
             			<?php foreach ($user->result() as $value_user) {
             				if ($value_user->level == 'Admin') { ?>
             					<td><a href="<?=base_url()?>Sepatu/ViewEdit/<?php echo $value->id ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>

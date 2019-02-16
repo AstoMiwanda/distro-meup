@@ -32,6 +32,11 @@ class M_Transaksi extends CI_Model
 		return $this->db->where('kode',$value);
 	}
 
+	public function where($where, $value)
+	{
+		return $this->db->where($where, $value);
+	}
+
 	public function delete($table, $id)
 	{
 		$this->db->where('kode',$id);

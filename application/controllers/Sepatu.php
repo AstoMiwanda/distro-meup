@@ -50,14 +50,18 @@ class Sepatu extends CI_Controller
 						'merk' => $this->input->POST('merk'),
 						'warna' => $this->input->POST('warna'),
 						'ukuran' => $this->input->POST('ukuran'),
-						'stock' => $this->input->POST('stock') );
+						'stock' => $this->input->POST('stock'),
+						'harga' => $this->input->POST('harga'),
+						'kategori_id' => $this->input->POST('kategori') );
 
 		if($cek == 1){
 			$id = $this->input->POST('id_barang');
 			$data = array('merk' => $this->input->POST('merk'),
-							'warna' => $this->input->POST('warna'),
-							'ukuran' => $this->input->POST('ukuran'),
-							'stock' => $this->input->POST('stock') );
+						'warna' => $this->input->POST('warna'),
+						'ukuran' => $this->input->POST('ukuran'),
+						'stock' => $this->input->POST('stock'),
+						'harga' => $this->input->POST('harga'),
+						'kategori_id' => $this->input->POST('kategori') );
 
 			$post = $this->M_user->updateBarang('tsepatu', $id, $data);
 		}else{
@@ -94,7 +98,9 @@ class Sepatu extends CI_Controller
 		$data = array('merk' => $this->input->POST('merk'),
 						'warna' => $this->input->POST('warna'),
 						'ukuran' => $this->input->POST('ukuran'),
-						'stock' => $this->input->POST('stock') );
+						'stock' => $this->input->POST('stock'),
+						'harga' => $this->input->POST('harga'),
+						'kategori_id' => $this->input->POST('kategori') );
 
 		$post = $this->M_user->update('tsepatu', $id, $data);
 

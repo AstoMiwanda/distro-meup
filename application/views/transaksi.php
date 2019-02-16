@@ -45,14 +45,14 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">Kategori</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">Kategori</label>
 
                     <div class="col-sm-10">
-                      <select id="kategori_barang" name="kategori_barang" class="form-control">
-                        <option value="1">(1) Baju</option>
-                        <option value="2">(2) Celana</option>
-                        <option value="3">(3) Sepatu</option>
-                        <option value="4">(4) Tas</option>
+                      <select name="kategori" class="form-control">
+                        <option value="1" <?php if ($value->kategori_id == '1') {echo 'selected';} ?>>Baju</option>
+                        <option value="2" <?php if ($value->kategori_id == '2') {echo 'selected';} ?>>Celana</option>
+                        <option value="3" <?php if ($value->kategori_id == '3') {echo 'selected';} ?>>Sepatu</option>
+                        <option value="4" <?php if ($value->kategori_id == '4') {echo 'selected';} ?>>Tas</option>
                       </select>
                     </div>
                   </div>

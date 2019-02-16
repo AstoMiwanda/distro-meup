@@ -103,14 +103,26 @@ class Transaksi extends CI_Controller
 		if($this->session->userdata('status') != "login"){
 			redirect(base_url('Login'));
 		}
-		$data = array('kode' => $this->input->post('id_barang'),
-			'kategori' => $this->input->post('kategori_barang'),
+		$data_barang = array('kode' => $this->input->post('id_barang'));
+		$cek = $this->M_user->cek_login('tkeranjang', $data_barang)->num_rows();
+		$kode = $this->input->post('id_barang');
+		$data = array('kode' => $kode,
+			'kategori' => $this->input->post('kategori'),
 			'merk' => $this->input->post('nama_barang'),
 			'harga' => $this->input->post('harga_barang'),
 			'jumlah' => $this->input->post('jumlah'),
 			'total' => $this->input->post('subtotal'));
-		$insert = $this->M_Transaksi->insert('tkeranjang', $data);
-
+		if($cek == 1){
+			$data = array('kode' => $kode,
+			'kategori' => $this->input->post('kategori'),
+			'merk' => $this->input->post('nama_barang'),
+			'harga' => $this->input->post('harga_barang'),
+			'jumlah' => $this->input->post('jumlah'),
+			'total' => $this->input->post('subtotal'));
+			$insert = $this->M_user->updateBarang('tkeranjang', $kode, $data);
+		}else{
+			$insert = $this->M_Transaksi->insert('tkeranjang', $data);
+		}
 		if($insert){
 			redirect(base_url('Transaksi'));
 		}else{
@@ -180,10 +192,9 @@ class Transaksi extends CI_Controller
 									'tanggal_transaksi' => $tanggal_transaksi);
 		// $this->M_Transaksi->insertTransaksi('user_id', $user_id);
 		$this->M_Transaksi->copyTable('tkeranjang', 'ttransaksi', $user_id);
-		$this->M_Transaksi->emptyTable('tkeranjang');
 		$sukses = $this->M_Transaksi->insert('ttransaksi_master', $data_transaksi_master);
 		if ($sukses) {
-			redirect(base_url('Transaksi'));
+			redirect(base_url('Transaksi/CetakStruk/'.$kode_nota.''));
 		}else{
 			confirm("Add User Gagal !!");
 		}
@@ -198,9 +209,38 @@ class Transaksi extends CI_Controller
 
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
+		foreach ($user->result() as $value_user) {
+			$level_user = $value_user->level;
+		}
 		$data = array('data' => $this->db->get('ttransaksi'),
-					'user' => $user);
+					'user' => $user,
+					'level_user' => $level_user);
 		$this->load->view('detailTransaksi', $data);
+	}
+
+	public function viewEditDetailTransaksi($id='')
+	{
+		if ($id != '') {
+			$all_user = $this->M_user->get_data('tuser');
+			$this->M_user->where_data($this->session->userdata('id'));
+			$user_data = $this->M_user->get_data('tuser');
+			foreach ($user_data->result() as $value_user) {
+				$user_level = $value_user->level;
+			}
+
+			$this->M_Transaksi->where('id', $id);
+			$data_transaksi = $this->M_Transaksi->get_data('ttransaksi');
+
+			$data = array('user' => $user_data,
+						'level' => $user_level,
+						'data_transaksi' => $data_transaksi,
+						'all_user' => $all_user);
+
+			$this->load->view('editDetailTransaksi', $data);
+		}else{
+			// redirect(base_url('Transaksi/LaporanTransaksi'));
+			echo "langka datane";
+		}
 	}
 
 	//Laporan Transaksi
@@ -212,17 +252,54 @@ class Transaksi extends CI_Controller
 
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
+		foreach ($user->result() as $value_user) {
+			$level_user = $value_user->level;
+		}
 		$data = array('data' => $this->db->get('ttransaksi_master'),
-					'user' => $user);
+					'user' => $user,
+					'level_user' => $level_user);
 		$this->load->view('laporanTransaksi', $data);
 	}
 
-	//Cetak Struk
-	public function CetakStruk()
+	public function viewEditTransaksi($id = '')
 	{
-		$data_struk = array('data_struk' => $this->M_Transaksi->get_data('tkeranjang'));
+		if ($id != '') {
+			$this->M_user->where_data($this->session->userdata('id'));
+			$user_data = $this->M_user->get_data('tuser');
+			foreach ($user_data->result() as $value_user) {
+				$user_level = $value_user->level;
+			}
 
+			$this->M_Transaksi->where('transaksimaster_id', $id);
+			$data_transaksi = $this->M_Transaksi->get_data('ttransaksi');
+
+			$data = array('user' => $user_data,
+				'user_level' => $user_level,
+				'data_transaksi' => $data_transaksi);
+			$this->load->view('editTransaksi', $data);
+		}else{
+			redirect(base_url('Transaksi/LaporanTransaksi'));
+		}
+	}
+
+	//Cetak Struk
+	public function CetakStruk($kode = '')
+	{
+		$data_keranjang = $this->M_Transaksi->get_data('tkeranjang');
+		$total = 0;
+		foreach ($data_keranjang->result() as $value) {
+			$total += $value->total;
+		}
+		$this->M_Transaksi->where('kode_nota',$kode);
+		$tunai = $this->M_Transaksi->get_data('ttransaksi_master')->result();
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+		$data_struk = array('data_struk' => $this->M_Transaksi->get_data('tkeranjang'),
+							'total_belanja' => $total,
+							'tunai' => $tunai,
+							'data_user' => $user);
 		$this->load->view('cetakStruk', $data_struk);
+		$this->M_Transaksi->emptyTable('tkeranjang');
 	}
 
 	//Export Data
@@ -292,11 +369,16 @@ class Transaksi extends CI_Controller
 		}
 	}
 
+	/* Laporan Pembelian */
 	public function LaporanPembelian()
 	{
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
+		foreach ($user->result() as $value_user) {
+			$level_user = $value_user->level;
+		}
 		$data = array('data' => $this->db->get('tpembelian'),
+					'level_user' => $level_user,
 					'user' => $user);
 		$this->load->view('laporanPembelian', $data);
 	}
@@ -335,6 +417,51 @@ class Transaksi extends CI_Controller
 		}else{
 			$post = $this->M_user->create('tpembelian', $data);
 		}
+
+		if ($post) {
+			redirect(base_url('Transaksi/LaporanPembelian'));
+		}else{
+			imap_alerts('gagal');
+		}
+	}
+
+	public function viewEditLaporanPembelian($id = '')
+	{
+		$all_user = $this->M_user->get_data('tuser');
+		$this->M_user->where_data($this->session->userdata('id'));
+		$user = $this->M_user->get_data('tuser');
+
+		$this->M_user->where_data($id);
+		$data['isi'] = $this->M_user->get_data('tpembelian');
+		$data_user = array('user' => $user, 'isi' =>$data, 'all_user' => $all_user);
+
+		$this->load->view('editLaporanPembelian', $data_user);
+	}
+
+	public function LaporanPembelianEditAction()
+	{
+		$tanggal =  date('Y-m-d', strtotime($this->input->POST('tanggal')));
+		$id = $this->input->POST('id');
+		$data = array('user_id' => $this->input->POST('user_id'),
+						'kategori' => $this->input->POST('kategori'),
+						'kode' => $this->input->POST('kode'),
+						'jumlah' => $this->input->POST('jumlah'),
+						'total' => $this->input->POST('total'),
+						'tanggal' => $tanggal );
+
+		$post = $this->M_user->update('tpembelian', $id, $data);
+
+
+		if ($post) {
+			redirect(base_url('Transaksi/LaporanPembelian'));
+		}else{
+			imap_alerts('gagal');
+		}
+	}
+
+	public function deleteLaporanPembelian($id = '')
+	{
+		$post = $this->M_user->delete('tpembelian', $id);
 
 		if ($post) {
 			redirect(base_url('Transaksi/LaporanPembelian'));

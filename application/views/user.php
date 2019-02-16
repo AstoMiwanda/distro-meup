@@ -43,7 +43,7 @@
                 </thead>
                 <tbody>
             	<?php $i=0; foreach ($isi['isi']->result() as $value)
-            	{ $i++;?>
+            	{ $i++; ?>
             		<tr>
             			<td><?php echo $i;?></td>
             			<td><?php echo $value->username;?></td>
@@ -55,7 +55,7 @@
                       <td><a href="<?=base_url()?>User/Delete/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
                   <?php }} ?>
             		</tr>
-            	<?php }?>
+            	<?php } ?>
                 </tfoot>
               </table>
             </div>

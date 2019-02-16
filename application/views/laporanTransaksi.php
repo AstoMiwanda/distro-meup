@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Data Transaksi</small>
+        <small>Laporan Transaksi</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -29,16 +29,22 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>No</th>
                   <th>User</th>
                   <th>Kode Nota</th>
                   <th>Total Transaksi</th>
                   <th>Bayar</th>
                   <th>Tanggal</th>
+                  <?php if ($level_user == 'Admin') { ?>
+                      <th>Edit</th>
+                      <th>Hapus</th>
+                  <?php } ?>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($data->result() as $value) { ?>
+                <?php $i=0; foreach ($data->result() as $value) { $i++; ?>
                 	<tr>
+                    <td><?php echo $i; ?></td>
                 		<td>
                       <?php $this->M_user->where_data($value->user_id);
                       $user = $this->M_user->get_data('tuser');
@@ -50,6 +56,10 @@
                 		<td><?php echo $value->total_transaksi; ?></td>
                 		<td><?php echo $value->bayar; ?></td>
                 		<td><?php echo $value->tanggal_transaksi; ?></td>
+                    <?php if ($level_user == 'Admin') { ?>
+                      <td><a href="<?=base_url()?>Transaksi/viewEditTransaksi/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/edit.svg"></a></td>
+                      <td><a href="<?=base_url()?>Transaksi/deleteLaporanPembelian/<?php echo $value->id; ?>"><img src="<?=base_url()?>assets/img/delete.svg"></a></td>
+                    <?php } ?>
                 	</tr>
                 <?php } ?>
                 </tfoot>

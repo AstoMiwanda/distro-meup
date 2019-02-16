@@ -57,7 +57,12 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Ukuran</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="ukuran" value="<?php echo $value->ukuran ?>" required>
+                                <select id="ukuran_barang" name="ukuran" class="form-control" value="L">
+                                  <option value="S" <?php if ($value->ukuran == 'S') {echo 'selected';} ?>>Kecil (S)</option>
+                                  <option value="M" <?php if ($value->ukuran == 'M') {echo 'selected';} ?>>Sedang (M)</option>
+                                  <option value="L" <?php if ($value->ukuran == 'L') {echo 'selected';} ?>>Besar (L)</option>
+                                  <option value="XL" <?php if ($value->ukuran == 'XL') {echo 'selected';} ?>>Ekstra Besar (XL)</option>
+                                </select>
                               </div>
                             </div>
                             <div class="form-group">
@@ -65,6 +70,25 @@
 
                               <div class="col-sm-10">
                                 <input type="text" class="form-control" name="stock" value="<?php echo $value->stock ?>" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
+
+                              <div class="col-sm-10">
+                                <input id="harga_barang" type="text" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-sm-2 control-label">Kategori</label>
+
+                              <div class="col-sm-10">
+                                <select name="kategori" class="form-control">
+                                  <option value="1" <?php if ($value->kategori_id == '1') {echo 'selected';} ?>>Baju</option>
+                                  <option value="2" <?php if ($value->kategori_id == '2') {echo 'selected';} ?>>Celana</option>
+                                  <option value="3" <?php if ($value->kategori_id == '3') {echo 'selected';} ?>>Sepatu</option>
+                                  <option value="4" <?php if ($value->kategori_id == '4') {echo 'selected';} ?>>Tas</option>
+                                </select>
                               </div>
                             </div>
                           </div>
