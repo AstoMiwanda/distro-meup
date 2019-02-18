@@ -34,6 +34,11 @@ class Chart extends CI_Controller
 		$where_sepatu = array('kategori' => 3);
 		$where_tas = array('kategori' => 4);
 
+		$num_baju = 0;
+		$num_celana = 0;
+		$num_sepatu = 0;
+		$num_tas = 0;
+		
 		foreach ($this->M_user->cek_login('ttransaksi', $where_baju)->result() as $value_baju) {
 			$num_baju = $value_baju->jumlah;
 		}

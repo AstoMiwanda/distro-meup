@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Edit Stock Barang</small>
+        <small>Edit Detail Transaksi</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,13 +24,17 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                          <h3 class="box-title">Baju</h3>
+                          <h3 class="box-title">Detail Transaksi</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="<?=base_url()?>Baju/EditAction" method="post" class="form-horizontal">
+                        <form action="<?=base_url()?>Transaksi/Edit_DetailTransaksi_Action" method="post" class="form-horizontal">
                         <?php foreach ($data_transaksi->result() as $value) { ?>
+
                             <input type="hidden" name="id" value="<?php echo $value->id ?>">
+                            <input type="hidden" name="transaksimaster_id" value="<?php echo $value->transaksimaster_id ?>">
+                            <input type="hidden" name="kode_barang" value="<?php echo $value->kode ?>">
+
                             <div class="box-body">
                         	<div class="form-group">
                         		<label for="inputPassword3" class="col-sm-2 control-label">UserID</label>
@@ -47,7 +51,7 @@
                               <label for="inputPassword3" class="col-sm-2 control-label">ID Barang</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="merk" value="<?php echo $value->kode ?>" disabled required>
+                                <input type="text" class="form-control" name="id_barang" value="<?php echo $value->kode ?>" disabled required>
                               </div>
                             </div>
                             <div class="form-group">
@@ -73,28 +77,28 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
+                                <input id="harga_barang" type="number" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Jumlah</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="jumlah" value="<?php echo $value->jumlah ?>" required>
+                                <input type="number" class="form-control" name="jumlah" value="<?php echo $value->jumlah ?>" onchange="jmlChange(this.value)" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Total</label>
 
                               <div class="col-sm-10">
-                                <input id="harga_barang" type="text" class="form-control" name="total" value="<?php echo $value->total ?>" required>
+                                <input id="subtotal" type="number" class="form-control" name="total" value="<?php echo $value->total ?>" required>
                               </div>
                             </div>
                           </div>
                           <?php } ?>
                           <!-- /.box-body -->
                           <div class="box-footer">
-                            <button onclick="window.location.href='<?=base_url()?>Baju'" class="btn btn-default">Cancel</button>
+                            <button type="button" onclick="window.location.href='<?=base_url()?>Transaksi/LaporanTransaksi'" class="btn btn-default">Cancel</button>
                             <button type="submit" class="btn btn-info pull-right">Edit</button>
                           </div>
                           <!-- /.box-footer -->
@@ -117,4 +121,10 @@
 <script type="text/javascript">
   $( ".treeview-dashboard" ).last().addClass( "active" );
   $( ".DetailTransaksi" ).last().addClass( "active" );
+  function jmlChange(val) {
+    var hb = document.getElementById("harga_barang").value;
+    var st = document.getElementById("subtotal");
+    var total = hb * val;
+    st.setAttribute('value', total);    
+  }
 </script>

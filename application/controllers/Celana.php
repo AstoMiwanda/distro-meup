@@ -65,9 +65,11 @@ class Celana extends CI_Controller
 		}
 
 		if ($post) {
-			redirect(base_url('Celana'));
+			echo "<script>alert('Data Berhasil ditambah');
+			window.location.href='http://localhost/distro-meup/Celana/ViewAdd';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal ditambah !');
+			window.location.href='http://localhost/distro-meup/Celana/ViewAdd';</script>";
 		}
 	}
 
@@ -99,9 +101,11 @@ class Celana extends CI_Controller
 
 
 		if ($post) {
-			redirect(base_url('Celana'));
+			echo "<script>alert('Data Berhasil diubah');
+			window.location.href='http://localhost/distro-meup/Celana';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal diubah !');
+			window.location.href='http://localhost/distro-meup/Celana/ViewEdit/$id';</script>";
 		}
 	}
 
@@ -111,9 +115,11 @@ class Celana extends CI_Controller
 		$post = $this->M_user->delete('tcelana', $id);
 
 		if ($post) {
-			redirect(base_url('Celana'));
+			echo "<script>alert('Data Berhasil dihapus');
+			window.location.href='http://localhost/distro-meup/Celana';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal dihapus !');
+			window.location.href='http://localhost/distro-meup/Celana';</script>";
 		}
 	}
 
@@ -155,10 +161,10 @@ class Celana extends CI_Controller
 			}
 			$sukses = $this->Excel_import_model->insert('tcelana',$data);
 			if (!$sukses) {
-				echo "<script>alert('Data Imported successfully');
+				echo "<script>alert('Data Berhasil diimport');
 				window.location = 'http://localhost/distro-meup/Celana'</script>";
 			}else{
-				echo "<script>alert('Data Imported failed');
+				echo "<script>alert('Data Gagal diimport !');
 				window.location = 'http://localhost/distro-meup/Celana'</script>";
 			}
 		}

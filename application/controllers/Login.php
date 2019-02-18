@@ -35,24 +35,9 @@ class Login extends CI_Controller
 			$this->session->set_userdata($data_session);
 			header("Location: http://localhost/distro-meup/Baju");
 	    } else {
-	        echo "<script>alert('There are no fields to generate a report');
+	        echo "<script>alert('Username dan Password salah !');
 			window.location.href='http://localhost/distro-meup/Login';</script>";
 	    }
-
-		// $password = $this->input->post('password');
-		// $where = array('username' => $username, 'password' => $password);
-		// $cek = $this->M_user->cek_login('tuser', $where)->num_rows();
-		// $data = $this->M_user->cek_login('tuser', $where);
-		// if($cek == 1){
-		// 	foreach ($data->result() as $value) {
-		// 		$data_session = array('id' => $value->id, 'status' => "login");
-		// 		$this->session->set_userdata($data_session);
-		// 	}
-		// 	header("Location: http://localhost/distro-meup/Baju");
-		// }else{
-		// 	echo "<script>alert('There are no fields to generate a report');
-		// 	window.location.href='http://localhost/distro-meup/Login';</script>";
-		// }
 	}
 
 	public function logout(){

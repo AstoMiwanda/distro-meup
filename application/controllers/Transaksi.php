@@ -164,7 +164,7 @@ class Transaksi extends CI_Controller
 			'harga' => $this->input->POST('harga_barang'),
 			'jumlah' => $this->input->POST('jumlah'),
 			'total' => $this->input->POST('subtotal'));
-		$edit = $this->M_Transaksi->update('tkeranjang', $kode, $data);
+		$edit = $this->M_Transaksi->update('tkeranjang', 'kode', $kode, $data);
 		if ($edit) {
 			echo "<script>";
 			echo "alert('Update Sukses')";
@@ -191,8 +191,16 @@ class Transaksi extends CI_Controller
 									'bayar' => $bayar,
 									'tanggal_transaksi' => $tanggal_transaksi);
 		// $this->M_Transaksi->insertTransaksi('user_id', $user_id);
-		$this->M_Transaksi->copyTable('tkeranjang', 'ttransaksi', $user_id);
+
 		$sukses = $this->M_Transaksi->insert('ttransaksi_master', $data_transaksi_master);
+		$this->M_Transaksi->where('kode_nota', $kode_nota);
+		$data_transaksi_master = $this->M_Transaksi->get_data('ttransaksi_master')->result();
+		foreach ($data_transaksi_master as $value) {
+			$transaksimaster_id = $value->id;
+		}
+
+		$this->M_Transaksi->copyTable('tkeranjang', 'ttransaksi', $user_id, $transaksimaster_id);		
+
 		if ($sukses) {
 			redirect(base_url('Transaksi/CetakStruk/'.$kode_nota.''));
 		}else{
@@ -238,8 +246,62 @@ class Transaksi extends CI_Controller
 
 			$this->load->view('editDetailTransaksi', $data);
 		}else{
-			// redirect(base_url('Transaksi/LaporanTransaksi'));
-			echo "langka datane";
+			redirect(base_url('Transaksi/LaporanTransaksi'));
+		}
+	}
+
+	public function Edit_DetailTransaksi_Action()
+	{
+		$id = $this->input->post('id');
+		if ($id) {
+			$transaksimaster_id = $this->input->post('transaksimaster_id');			
+
+			$data = array('user_id' => $this->input->post('user_id'),
+			'kode' => $this->input->post('kode_barang'),
+			'kategori' => $this->input->post('kategori'),
+			'merk' => $this->input->post('merk'),
+			'harga' => $this->input->post('harga'),
+			'jumlah' => $this->input->post('jumlah'),
+			'total' => $this->input->post('total') );
+			
+			$edit_transaksi = $this->M_Transaksi->update('ttransaksi','id', $id, $data);
+
+			$this->M_Transaksi->where('transaksimaster_id', $transaksimaster_id);
+			$transaksi = $this->M_Transaksi->get_data('ttransaksi')->result();
+			$total_transaksi = 0;
+			foreach ($transaksi as $value) {
+				$total_transaksi += $value->total;
+			}
+			$data_transaksi_master = array('total_transaksi' => $total_transaksi );
+
+			$edit_transaksi_master = $this->M_Transaksi->update('ttransaksi_master', 'id', $transaksimaster_id, $data_transaksi_master);
+
+			if ($edit_transaksi_master) {
+				redirect(base_url('Transaksi/viewEditTransaksi/'.$transaksimaster_id.''));
+			}else{
+				redirect(base_url('Transaksi/viewEditTransaksi/'.$transaksimaster_id.''));
+			}
+
+		}else{
+			redirect(base_url('Transaksi/LaporanTransaksi'));
+		}
+	}
+
+	public function EditTransaksiMaster()
+	{
+		if ($this->input->post('submit') !='') {
+			$data_transaksi_master = array('bayar' => $this->input->post('bayar') );
+			$transaksimaster_id = $this->input->post('transaksimaster_id');
+
+			$result = $this->M_Transaksi->update('ttransaksi_master', 'id', $transaksimaster_id, $data_transaksi_master);
+
+			if ($result) {
+				redirect(base_url('Transaksi/LaporanTransaksi'));
+			}else{
+				redirect(base_url('Transaksi/viewEditTransaksi/'.$transaksimaster_id.''));
+			}
+		}else{
+			redirect(base_url('Transaksi/LaporanTransaksi'));
 		}
 	}
 
@@ -272,10 +334,22 @@ class Transaksi extends CI_Controller
 
 			$this->M_Transaksi->where('transaksimaster_id', $id);
 			$data_transaksi = $this->M_Transaksi->get_data('ttransaksi');
+			$data_transaksi_master = $this->M_Transaksi->get_data('ttransaksi_master');
+			$total_transaksi = 0;
+			$bayar = 0;
+			foreach ($data_transaksi->result() as $value) {
+				$total_transaksi += $value->total;
+			}
+			foreach ($data_transaksi_master->result() as $value) {
+				$bayar = $value->bayar;
+			}
 
 			$data = array('user' => $user_data,
 				'user_level' => $user_level,
-				'data_transaksi' => $data_transaksi);
+				'data_transaksi' => $data_transaksi,
+				'total_transaksi' => $total_transaksi,
+				'bayar' => $bayar,
+				'transaksimaster_id' => $id);
 			$this->load->view('editTransaksi', $data);
 		}else{
 			redirect(base_url('Transaksi/LaporanTransaksi'));

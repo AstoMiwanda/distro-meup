@@ -16,6 +16,45 @@
       </ol>
     </section>
 
+    <!-- Input -->
+    <div class="content" style="min-height: unset; padding: 0 15px; margin-top: 32px;">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- form start -->
+            <form class="form-horizontal" method="post" action="<?=base_url()?>Transaksi/EditTransaksiMaster">
+              <div class="box-body" style="padding: 0 10px;">
+                <div class="row" style="display: flex;align-items: flex-end;">
+
+                  <input type="hidden" name="transaksimaster_id" value="<?php echo $transaksimaster_id ?>">
+                  <div class="col-md-5">
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <label for="inputEmail3" class="col-sm-12 control-label" style="text-align: left;">Total (Rp)</label>
+
+                      <div class="col-sm-12">
+                        <input type="number" name="total_transaksi" class="form-control" id="inputEmail3" value="<?php echo $total_transaksi ?>" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="form-group" style="margin-bottom: 0;">
+                      <label for="inputPassword3" class="col-sm-12 control-label" style="text-align: left;">Bayar (Rp)</label>
+
+                      <div class="col-sm-12">
+                        <input type="number" name="bayar" class="form-control" id="inputPassword3" value="<?php echo $bayar ?>" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" name="submit" value="submit" class="btn btn-info pull-right" style="width: 100%;">Edit</button>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </form>
+        </div>
+      </div>
+    </div>
+    <!-- End of Input -->
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -30,6 +69,7 @@
                 <thead>
                 <tr>
                   <th>No</th>
+                  <th>Kategori</th>
                   <th>Nama Barang</th>
                   <th>Harga</th>
                   <th>Jumlah</th>
@@ -45,6 +85,13 @@
                 <?php $i = 0; foreach ($data_transaksi->result() as $value) { $i++ ?>
                   <tr>
                     <td><?php echo $i ?></td>
+                    <td>
+                      <?php $this->M_user->where_data($value->kategori);
+                      $kategori = $this->M_user->get_data('tkategori');
+                      foreach ($kategori->result() as $valueKategori) {
+                        echo $valueKategori->kategori;
+                      } ?>
+                    </td>
                     <td><?php echo $value->merk ?></td>
                     <td><?php echo $value->harga ?></td>
                     <td><?php echo $value->jumlah ?></td>

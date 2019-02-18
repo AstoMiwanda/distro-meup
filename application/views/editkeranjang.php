@@ -51,14 +51,14 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
 
                               <div class="col-sm-10">
-                                <input id="harga_barang" type="text" class="form-control" name="harga_barang" value="<?php echo $value->harga ?>" required>
+                                <input id="harga_barang" type="number" class="form-control" name="harga_barang" value="<?php echo $value->harga ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Jumlah</label>
 
                               <div class="col-sm-10">
-                                <input id="jumlah" type="text" class="form-control" name="jumlah" value="<?php echo $value->jumlah ?>" onchange="jmlChange(this.value)" required>
+                                <input id="jumlah" type="number" class="form-control" name="jumlah" value="<?php echo $value->jumlah ?>" onchange="jmlChange(this.value)" required>
                               </div>
                             </div>
                             <div class="form-group">

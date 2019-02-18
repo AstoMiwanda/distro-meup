@@ -53,14 +53,14 @@
                               <label for="inputEmail3" class="col-sm-3 control-label">Jumlah</label>
 
                               <div class="col-sm-9">
-                                <input id="jumlah_barang" type="text" class="form-control" name="jumlah_barang" placeholder="Jumlah" required>
+                                <input id="jumlah_barang" type="number" class="form-control" name="jumlah_barang" placeholder="Jumlah" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-3 control-label">Total Pembelian (Rp)</label>
 
                               <div class="col-sm-9">
-                                <input id="total" type="text" class="form-control" name="total" placeholder="1000000" required>
+                                <input id="total" type="number" class="form-control" name="total" placeholder="1000000" required>
                               </div>
                             </div>
                           </div>

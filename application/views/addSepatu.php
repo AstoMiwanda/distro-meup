@@ -62,14 +62,14 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="stock" placeholder="Stock" required>
+                                <input type="number" class="form-control" name="stock" placeholder="Stock" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
 
                               <div class="col-sm-10">
-                                <input id="harga_barang" type="text" class="form-control" name="harga" placeholder="Harga" required>
+                                <input id="harga_barang" type="number" class="form-control" name="harga" placeholder="Harga" required>
                               </div>
                             </div>
                             <div class="form-group">

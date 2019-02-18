@@ -26,31 +26,6 @@ class Baju extends CI_Controller
 		$user = $this->M_user->get_data('tuser');
 		$data_user = array('user' => $user, 'isi' =>$data);
 		$this->load->view('baju', $data_user);
-
-		/*
-		if(isset($_GET['per_laman'])) {
-			$per_laman = array($_GET['per_laman']);
-		}else {
-			$per_laman = 1;
-		}
-
-		$laman_sekarang = 1;
-		if(isset($_GET['laman'])) {
-			$laman_sekarang = $_GET['laman'];
-			$laman_sekarang = ($laman_sekarang > 1) ? $laman_sekarang : 1;
-		}
-		$con = mysqli_connect("localhost","root","","distro");
-		if (mysqli_connect_errno()) {
-			echo "Koneksi Gagal!!";
-		}
-		$query = "SELECT * FROM `tbaju`";
-		$result = mysqli_query($con, $query) or die(mysql_error());
-		$total_data = mysqli_num_rows($result);
-		$total_laman = ceil($total_data / $per_laman);
-		$awal = ($laman_sekarang - 1) * $per_laman;
-		$data_limit = $this->M_user->get_limit('tbaju', $awal, $per_laman);
-		$this->M_user->CreatePagging('baju', $data_limit, $total_laman, $laman_sekarang);
-		*/
 	}
 
 	//Add Form
@@ -90,9 +65,11 @@ class Baju extends CI_Controller
 		}
 
 		if ($post) {
-			redirect(base_url('Baju'));
+			echo "<script>alert('Data Berhasil ditambahkan');
+			window.location.href='http://localhost/distro-meup/Baju';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal ditambahkan !');
+			window.location.href='http://localhost/distro-meup/Baju/ViewAdd';</script>";
 		}
 	}
 
@@ -124,9 +101,11 @@ class Baju extends CI_Controller
 
 
 		if ($post) {
-			redirect(base_url('Baju'));
+			echo "<script>alert('Data Berhasil diubah');
+			window.location.href='http://localhost/distro-meup/Baju';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal diubah !');
+			window.location.href='http://localhost/distro-meup/Baju/ViewEdit/$id';</script>";
 		}
 	}
 
@@ -136,9 +115,11 @@ class Baju extends CI_Controller
 		$post = $this->M_user->delete('tbaju', $id);
 
 		if ($post) {
-			redirect(base_url('Baju'));
+			echo "<script>alert('Data Berhasil dihapus');
+			window.location.href='http://localhost/distro-meup/Baju';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal dihapus !');
+			window.location.href='http://localhost/distro-meup/Baju';</script>";
 		}
 	}
 
@@ -180,10 +161,10 @@ class Baju extends CI_Controller
 			}
 			$sukses = $this->Excel_import_model->insert('tbaju',$data);
 			if (!$sukses) {
-				echo "<script>alert('Data Imported successfully');
+				echo "<script>alert('Data Berhasil diimport');
 				window.location = 'http://localhost/distro-meup/Baju'</script>";
 			}else{
-				echo "<script>alert('Data Imported failed');
+				echo "<script>alert('Data Gagal diimport !');
 				window.location = 'http://localhost/distro-meup/Baju'</script>";
 			}
 		}

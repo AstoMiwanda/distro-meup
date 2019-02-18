@@ -73,8 +73,13 @@
                   <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Jumlah</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                       <input type="number" class="form-control" name="jumlah" id="jumlah" value="" onchange="jmlChange(this.value)"  required>
+                    </div>
+                    <label for="inputPassword3" class="col-sm-2 control-label">Stock</label>
+                    <div class="col-sm-3">
+                      <input id="stock_barang" type="text" class="form-control" name="stock" value="<?php echo $value->stock ?>" disabled>
+                      <input id="stock_hidden" type="hidden" name="stock_hidden" value="<?php echo $value->stock ?>">
                     </div>
                   </div>
                   <div class="form-group">
@@ -138,8 +143,13 @@
                   <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">Jumlah</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-5">
                       <input type="number" class="form-control" name="jumlah" id="jumlah" value="" onchange="jmlChange(this.value)"  required>
+                    </div>
+                    <label for="inputPassword3" class="col-sm-2 control-label">Stock</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" class="form-control" name="stock" value="0" disabled>
+                      <input id="stock_hidden" type="hidden" name="stock_hidden" value="0">
                     </div>
                   </div>
                   <div class="form-group">
@@ -182,7 +192,7 @@
                   <label for="inputPassword3" class="col-sm-2 control-label">Bayar (Rp)</label>
 
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" name="bayar" id="bayar" onchange="bayarOnchange(this.value)" required>
+                    <input type="number" class="form-control" name="bayar" id="bayar" onchange="bayarOnchange(this.value)" required>
                   </div>
                 </div>
                 <div class="form-group">
@@ -283,8 +293,12 @@
   function jmlChange(val) {
     var hb = document.getElementById("harga_barang").value;
     var st = document.getElementById("subtotal");
+    var sb = document.getElementById("stock_barang");
+    var sh_v = document.getElementById("stock_hidden").value;
     var total = hb * val;
-    st.setAttribute('value', total);    
+    var sb_n = sh_v - val;
+    st.setAttribute('value', total);
+    sb.setAttribute('value', sb_n);
   }
   function bayarOnchange(val) {
     var tb = document.getElementById("total_belanja").value;

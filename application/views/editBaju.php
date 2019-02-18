@@ -69,14 +69,14 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="stock" value="<?php echo $value->stock ?>" required>
+                                <input type="number" class="form-control" name="stock" value="<?php echo $value->stock ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
 
                               <div class="col-sm-10">
-                                <input id="harga_barang" type="text" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
+                                <input id="harga_barang" type="number" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
                               </div>
                             </div>
                             <div class="form-group">

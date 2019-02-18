@@ -43,10 +43,10 @@ class M_Transaksi extends CI_Model
 		return $this->db->delete($table);
 	}
 
-	public function update($table, $id, $data)
+	public function update($table, $where, $id, $data)
 	{
 		$this->db->get($table);
-		$this->db->where('kode', $id);
+		$this->db->where($where, $id);
 		return $this->db->update($table, $data);
 	}
 
@@ -61,12 +61,15 @@ class M_Transaksi extends CI_Model
 		return $data;
 	}
 
-	public function copyTable($tableFrom='', $tableTo='', $user_id='')
+	public function copyTable($tableFrom='', $tableTo='', $user_id='', $transaksimaster_id='')
 	{
 		$q = $this->db->get($tableFrom)->result(); // get first table
 	    foreach($q as $r) { // loop over results
 	    	if ($user_id != '') {
 	    		$this->db->set('user_id', $user_id); // set user_id
+	    	}
+	    	if ($transaksimaster_id !='') {
+	    		$this->db->set('transaksimaster_id', $transaksimaster_id);
 	    	}
 	        $this->db->insert($tableTo, $r); // insert each row to another table	        
 	    }

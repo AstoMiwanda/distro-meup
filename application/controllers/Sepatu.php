@@ -69,9 +69,11 @@ class Sepatu extends CI_Controller
 		}
 
 		if ($post) {
-			redirect(base_url('Sepatu'));
+			echo "<script>alert('Data Berhasil ditambah');
+			window.location.href='http://localhost/distro-meup/Sepatu';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal ditambah !');
+			window.location.href='http://localhost/distro-meup/Sepatu';</script>";
 		}
 	}
 
@@ -106,9 +108,11 @@ class Sepatu extends CI_Controller
 
 
 		if ($post) {
-			redirect(base_url('Sepatu'));
+			echo "<script>alert('Data Berhasil diubah');
+			window.location.href='http://localhost/distro-meup/Sepatu';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal diubah !');
+			window.location.href='http://localhost/distro-meup/Sepatu/ViewEdit/$id';</script>";
 		}
 	}
 
@@ -121,9 +125,11 @@ class Sepatu extends CI_Controller
 		$post = $this->M_user->delete('tsepatu', $id);
 
 		if ($post) {
-			redirect(base_url('Sepatu'));
+			echo "<script>alert('Data Berhasil dihapus');
+			window.location.href='http://localhost/distro-meup/Sepatu';</script>";
 		}else{
-			imap_alerts('gagal');
+			echo "<script>alert('Data Gagal dihapus !');
+			window.location.href='http://localhost/distro-meup/Sepatu';</script>";
 		}
 	}
 
@@ -165,10 +171,10 @@ class Sepatu extends CI_Controller
 			}
 			$sukses = $this->Excel_import_model->insert('tsepatu',$data);
 			if (!$sukses) {
-				echo "<script>alert('Data Imported successfully');
+				echo "<script>alert('Data Berhasil diimport');
 				window.location = 'http://localhost/distro-meup/Sepatu'</script>";
 			}else{
-				echo "<script>alert('Data Imported failed');
+				echo "<script>alert('Data Gagal diimport !');
 				window.location = 'http://localhost/distro-meup/Sepatu'</script>";
 			}
 		}
