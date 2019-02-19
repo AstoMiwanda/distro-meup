@@ -7,7 +7,7 @@
 
 <?php
 	header("Content-type: application/vnd-ms-excel");
-	header("Content-Disposition: attachment; filename=Data Sepatu.xls");
+	header("Content-Disposition: attachment; filename=Data Jaket.xls");
 ?>
 
 <table border="1" style="width: 100%">

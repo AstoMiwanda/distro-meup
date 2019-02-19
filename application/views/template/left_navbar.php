@@ -51,6 +51,7 @@
             <li class="menu-transaksi"><a href="<?=base_url()?>Transaksi"><i class="fa fa-circle-o"></i> Transaksi</a></li>
             <li class="menu-baju"><a href="<?=base_url()?>Baju"><i class="fa fa-circle-o"></i> Baju</a></li>
             <li class="menu-celana"><a href="<?=base_url()?>Celana"><i class="fa fa-circle-o"></i> Celana</a></li>
+            <li class="menu-jaket"><a href="<?=base_url()?>Jaket"><i class="fa fa-circle-o"></i> Jaket</a></li>
             <li class="menu-sepatu"><a href="<?=base_url()?>Sepatu"><i class="fa fa-circle-o"></i> Sepatu</a></li>
             <li class="menu-tas"><a href="<?=base_url()?>Tas"><i class="fa fa-circle-o"></i> Tas</a></li>
             <?php foreach ($user->result() as $value) {

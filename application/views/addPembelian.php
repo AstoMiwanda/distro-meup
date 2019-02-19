@@ -46,6 +46,7 @@
                                   <option value="2">(2) Celana</option>
                                   <option value="3">(3) Sepatu</option>
                                   <option value="4">(4) Tas</option>
+                                  <option value="5">(5) Jaket</option>
                                 </select>
                               </div>
                             </div>

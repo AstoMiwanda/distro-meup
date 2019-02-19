@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * 
  */
-class Celana extends CI_Controller
+class Jaket extends CI_Controller
 {
 	public function __construct()
 	{
@@ -21,27 +21,28 @@ class Celana extends CI_Controller
 
 	public function index()
 	{
-		$data['isi'] = $this->M_user->get_data('tcelana');
+		$data['isi'] = $this->M_user->get_data('tjaket');
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
 		$data_user = array('user' => $user, 'isi' =>$data);
-		$this->load->view('celana', $data_user);
+		$this->load->view('jaket', $data_user);
 	}
 
 	//Add Form
 	public function ViewAdd()
 	{
+		$data['isi'] = $this->M_user->get_data('tjaket');
 		$this->M_user->where_data($this->session->userdata('id'));
 		$user = $this->M_user->get_data('tuser');
-		$data_user = array('user' => $user);
-		$this->load->view('addCelana', $data_user);
+		$data_user = array('user' => $user, 'isi' =>$data);
+		$this->load->view('addJaket', $data_user);
 	}
 
 	//Add Data
 	public function AddAction()
 	{
 		$data_barang = array('kode' => $this->input->post('id_barang'));
-		$cek = $this->M_user->cek_login('tcelana', $data_barang)->num_rows();
+		$cek = $this->M_user->cek_login('tjaket', $data_barang)->num_rows();
 		$data = array('kode' => $this->input->post('id_barang'),
 						'merk' => $this->input->POST('merk'),
 						'warna' => $this->input->POST('warna'),
@@ -49,7 +50,6 @@ class Celana extends CI_Controller
 						'stock' => $this->input->POST('stock'),
 						'harga' => $this->input->POST('harga'),
 						'kategori_id' => $this->input->POST('kategori') );
-
 		if($cek == 1){
 			$id = $this->input->POST('id_barang');
 			$data = array('merk' => $this->input->POST('merk'),
@@ -59,17 +59,17 @@ class Celana extends CI_Controller
 						'harga' => $this->input->POST('harga'),
 						'kategori_id' => $this->input->POST('kategori') );
 
-			$post = $this->M_user->updateBarang('tcelana', $id, $data);
+			$post = $this->M_user->updateBarang('tjaket', $id, $data);
 		}else{
-			$post = $this->M_user->create('tcelana', $data);
+			$post = $this->M_user->create('tjaket', $data);
 		}
 
 		if ($post) {
-			echo "<script>alert('Data Berhasil ditambah');
-			window.location.href='http://localhost/distro-meup/Celana';</script>";
+			echo "<script>alert('Data Berhasil ditambahkan');
+			window.location.href='http://localhost/distro-meup/Jaket';</script>";
 		}else{
-			echo "<script>alert('Data Gagal ditambah !');
-			window.location.href='http://localhost/distro-meup/Celana/ViewAdd';</script>";
+			echo "<script>alert('Data Gagal ditambahkan !');
+			window.location.href='http://localhost/distro-meup/Jaket/ViewAdd';</script>";
 		}
 	}
 
@@ -80,10 +80,10 @@ class Celana extends CI_Controller
 		$user = $this->M_user->get_data('tuser');
 
 		$this->M_user->where_data($id);
-		$data['isi'] = $this->M_user->get_data('tcelana');
+		$data['isi'] = $this->M_user->get_data('tjaket');
 		$data_user = array('user' => $user, 'isi' =>$data);
 
-		$this->load->view('editCelana', $data_user);
+		$this->load->view('editJaket', $data_user);
 	}
 
 	//Edit Data
@@ -97,29 +97,29 @@ class Celana extends CI_Controller
 						'harga' => $this->input->POST('harga'),
 						'kategori_id' => $this->input->POST('kategori') );
 
-		$post = $this->M_user->update('tcelana', $id, $data);
+		$post = $this->M_user->update('tjaket', $id, $data);
 
 
 		if ($post) {
 			echo "<script>alert('Data Berhasil diubah');
-			window.location.href='http://localhost/distro-meup/Celana';</script>";
+			window.location.href='http://localhost/distro-meup/Jaket';</script>";
 		}else{
 			echo "<script>alert('Data Gagal diubah !');
-			window.location.href='http://localhost/distro-meup/Celana/ViewEdit/$id';</script>";
+			window.location.href='http://localhost/distro-meup/Jaket/ViewEdit/$id';</script>";
 		}
 	}
 
 	//Delete Data
 	public function Delete( $id = '')
 	{
-		$post = $this->M_user->delete('tcelana', $id);
+		$post = $this->M_user->delete('tjaket', $id);
 
 		if ($post) {
 			echo "<script>alert('Data Berhasil dihapus');
-			window.location.href='http://localhost/distro-meup/Celana';</script>";
+			window.location.href='http://localhost/distro-meup/Jaket';</script>";
 		}else{
 			echo "<script>alert('Data Gagal dihapus !');
-			window.location.href='http://localhost/distro-meup/Celana';</script>";
+			window.location.href='http://localhost/distro-meup/Jaket';</script>";
 		}
 	}
 
@@ -128,7 +128,7 @@ class Celana extends CI_Controller
 	{
 		if (isset($_POST['import']) && isset($_POST['empty'])) {
 			if ($_POST['empty'] == 'empty') {
-				$this->db->truncate('tcelana');
+				$this->db->truncate('tjaket');
 			}
 		}
 		if(isset($_FILES["file"]["name"]))
@@ -159,21 +159,21 @@ class Celana extends CI_Controller
 					);
 				}
 			}
-			$sukses = $this->Excel_import_model->insert('tcelana',$data);
+			$sukses = $this->Excel_import_model->insert('tjaket',$data);
 			if (!$sukses) {
 				echo "<script>alert('Data Berhasil diimport');
-				window.location = 'http://localhost/distro-meup/Celana'</script>";
+				window.location = 'http://localhost/distro-meup/Jaket'</script>";
 			}else{
 				echo "<script>alert('Data Gagal diimport !');
-				window.location = 'http://localhost/distro-meup/Celana'</script>";
+				window.location = 'http://localhost/distro-meup/Jaket'</script>";
 			}
 		}
 	}
 
-	public function ExportData()
+	public function ExportJaket()
 	{
-		$data = array('data' => $this->M_user->get_data('tcelana'));
+		$data = array('data' => $this->M_user->get_data('tjaket'));
 
-		$this->load->view('exportCelana', $data);
+		$this->load->view('exportJaket', $data);
 	}
 }

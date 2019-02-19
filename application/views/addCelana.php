@@ -86,6 +86,7 @@
                                   <option value="2">Celana</option>
                                   <option value="3">Sepatu</option>
                                   <option value="4">Tas</option>
+                                  <option value="5">Jaket</option>
                                 </select>
                               </div>
                             </div>

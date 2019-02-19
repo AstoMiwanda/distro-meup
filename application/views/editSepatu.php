@@ -83,6 +83,7 @@
                                   <option value="2" <?php if ($value->kategori_id == '2') {echo 'selected';} ?>>Celana</option>
                                   <option value="3" <?php if ($value->kategori_id == '3') {echo 'selected';} ?>>Sepatu</option>
                                   <option value="4" <?php if ($value->kategori_id == '4') {echo 'selected';} ?>>Tas</option>
+                                  <option value="5" <?php if ($value->kategori_id == '5') {echo 'selected';} ?>>Jaket</option>
                                 </select>
                               </div>
                             </div>

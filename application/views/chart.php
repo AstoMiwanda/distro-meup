@@ -238,6 +238,7 @@
     var pie_celana = data_pieArray['num_celana'];
     var pie_sepatu = data_pieArray['num_sepatu'];
     var pie_tas = data_pieArray['num_tas'];
+    var pie_jaket = data_pieArray['num_jaket'];
 
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
     var pieChart       = new Chart(pieChartCanvas)
@@ -265,6 +266,12 @@
         color    : '#00c0ef',
         highlight: '#00c0ef',
         label    : 'Tas'
+      },
+      {
+        value    : pie_jaket,
+        color    : '#3c8dbc',
+        highlight: '#3c8dbc',
+        label    : 'Jaket'
       }
     ]
     var pieOptions     = {

@@ -33,29 +33,35 @@ class Chart extends CI_Controller
 		$where_celana = array('kategori' => 2);
 		$where_sepatu = array('kategori' => 3);
 		$where_tas = array('kategori' => 4);
+		$where_jaket = array('kategori' => 5);
 
 		$num_baju = 0;
 		$num_celana = 0;
 		$num_sepatu = 0;
 		$num_tas = 0;
+		$num_jaket = 0;
 		
 		foreach ($this->M_user->cek_login('ttransaksi', $where_baju)->result() as $value_baju) {
-			$num_baju = $value_baju->jumlah;
+			$num_baju += $value_baju->jumlah;
 		}
 		foreach ($this->M_user->cek_login('ttransaksi', $where_celana)->result() as $value_celana) {
-			$num_celana = $value_celana->jumlah;
+			$num_celana += $value_celana->jumlah;
 		}
 		foreach ($this->M_user->cek_login('ttransaksi', $where_sepatu)->result() as $value_sepatu) {
-			$num_sepatu = $value_sepatu->jumlah;
+			$num_sepatu += $value_sepatu->jumlah;
 		}
 		foreach ($this->M_user->cek_login('ttransaksi', $where_tas)->result() as $value_tas) {
-			$num_tas = $value_tas->jumlah;
+			$num_tas += $value_tas->jumlah;
+		}
+		foreach ($this->M_user->cek_login('ttransaksi', $where_jaket)->result() as $value_jaket) {
+			$num_jaket += $value_jaket->jumlah;
 		}
 
 		$data_pie = array('num_baju' => $num_baju,
 		'num_celana' => $num_celana,
 		'num_sepatu' => $num_sepatu,
-		'num_tas' => $num_tas );
+		'num_tas' => $num_tas,
+		'num_jaket' => $num_jaket );
 
 		//Pembelian
 		$now_year = date('Y');

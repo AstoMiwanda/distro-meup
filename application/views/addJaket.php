@@ -24,11 +24,11 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                          <h3 class="box-title">Baju</h3>
+                          <h3 class="box-title">Jaket</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="tambah_barang" action="<?=base_url()?>Baju/AddAction" method="post" class="form-horizontal">
+                        <form id="tambah_barang" action="<?=base_url()?>Jaket/AddAction" method="post" class="form-horizontal">
                           <div class="box-body">
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">ID Barang</label>
@@ -93,7 +93,7 @@
                           </div>
                           <!-- /.box-body -->
                           <div class="box-footer">
-                            <button onclick="window.location.href='<?=base_url()?>Baju'" class="btn btn-default">Cancel</button>
+                            <button onclick="window.location.href='<?=base_url()?>Jaket'" class="btn btn-default">Cancel</button>
                             <button type="submit" class="btn btn-info pull-right">Tambah</button>
                           </div>
                           <!-- /.box-footer -->
@@ -115,5 +115,5 @@
 <?php require_once 'template/footer.php' ?>
 <script type="text/javascript">
   $( ".treeview-tables" ).last().addClass( "active" );
-  $( ".menu-baju" ).last().addClass( "active" );
+  $( ".menu-jaket" ).last().addClass( "active" );
 </script>

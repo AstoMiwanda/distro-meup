@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>
         Distro MeUp
-        <small>Tambah Stock Barang</small>
+        <small>Edit Stock Barang</small>
       </h1>
       <!-- <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,42 +24,44 @@
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                          <h3 class="box-title">Baju</h3>
+                          <h3 class="box-title">Jaket</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form id="tambah_barang" action="<?=base_url()?>Baju/AddAction" method="post" class="form-horizontal">
-                          <div class="box-body">
+                        <form action="<?=base_url()?>Jaket/EditAction" method="post" class="form-horizontal">
+                        <?php foreach ($isi['isi']->result() as $value) { ?>
+                            <input type="hidden" name="id" value="<?php echo $value->id ?>">
+                            <div class="box-body">
                             <div class="form-group">
-                              <label for="inputEmail3" class="col-sm-2 control-label">ID Barang</label>
+                              <label for="inputPassword3" class="col-sm-2 control-label">ID Barang</label>
 
                               <div class="col-sm-10">
-                                <input type="text" class="form-control" name="id_barang" placeholder="ID Barang" onchange="kodeChange(this.value)" required>
+                                <input type="text" class="form-control" name="merk" value="<?php echo $value->kode ?>" disabled required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputPassword3" class="col-sm-2 control-label">Merk</label>
 
                               <div class="col-sm-10">
-                                <input id="merk_barang" type="text" class="form-control" name="merk" placeholder="Merk" required>
+                                <input type="text" class="form-control" name="merk" value="<?php echo $value->merk ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Warna</label>
 
                               <div class="col-sm-10">
-                                <input id="warna_barang" type="text" class="form-control" name="warna" placeholder="Warna" required>
+                                <input type="text" class="form-control" name="warna" value="<?php echo $value->warna ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Ukuran</label>
 
                               <div class="col-sm-10">
-                                <select id="ukuran_barang" name="ukuran" class="form-control">
-                                  <option value="S">Kecil (S)</option>
-                                  <option value="M">Sedang (M)</option>
-                                  <option value="L">Besar (L)</option>
-                                  <option value="XL">Ekstra Besar (XL)</option>
+                                <select id="ukuran_barang" name="ukuran" class="form-control" value="L">
+                                  <option value="S" <?php if ($value->ukuran == 'S') {echo 'selected';} ?>>Kecil (S)</option>
+                                  <option value="M" <?php if ($value->ukuran == 'M') {echo 'selected';} ?>>Sedang (M)</option>
+                                  <option value="L" <?php if ($value->ukuran == 'L') {echo 'selected';} ?>>Besar (L)</option>
+                                  <option value="XL" <?php if ($value->ukuran == 'XL') {echo 'selected';} ?>>Ekstra Besar (XL)</option>
                                 </select>
                               </div>
                             </div>
@@ -67,14 +69,14 @@
                               <label for="inputEmail3" class="col-sm-2 control-label">Stock</label>
 
                               <div class="col-sm-10">
-                                <input id="stock_barang" type="number" class="form-control" name="stock" placeholder="Stock" required>
+                                <input type="number" class="form-control" name="stock" value="<?php echo $value->stock ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputEmail3" class="col-sm-2 control-label">Harga</label>
 
                               <div class="col-sm-10">
-                                <input id="harga_barang" type="number" class="form-control" name="harga" placeholder="Harga" required>
+                                <input id="harga_barang" type="number" class="form-control" name="harga" value="<?php echo $value->harga ?>" required>
                               </div>
                             </div>
                             <div class="form-group">
@@ -82,19 +84,20 @@
 
                               <div class="col-sm-10">
                                 <select name="kategori" class="form-control">
-                                  <option value="1">Baju</option>
-                                  <option value="2">Celana</option>
-                                  <option value="3">Sepatu</option>
-                                  <option value="4">Tas</option>
-                                  <option value="5">Jaket</option>
+                                  <option value="1" <?php if ($value->kategori_id == '1') {echo 'selected';} ?>>Baju</option>
+                                  <option value="2" <?php if ($value->kategori_id == '2') {echo 'selected';} ?>>Celana</option>
+                                  <option value="3" <?php if ($value->kategori_id == '3') {echo 'selected';} ?>>Sepatu</option>
+                                  <option value="4" <?php if ($value->kategori_id == '4') {echo 'selected';} ?>>Tas</option>
+                                  <option value="5" <?php if ($value->kategori_id == '5') {echo 'selected';} ?>>Jaket</option>
                                 </select>
                               </div>
                             </div>
                           </div>
+                          <?php } ?>
                           <!-- /.box-body -->
                           <div class="box-footer">
-                            <button onclick="window.location.href='<?=base_url()?>Baju'" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-info pull-right">Tambah</button>
+                            <button onclick="window.location.href='<?=base_url()?>Jaket'" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-info pull-right">Edit</button>
                           </div>
                           <!-- /.box-footer -->
                         </form>
@@ -115,5 +118,5 @@
 <?php require_once 'template/footer.php' ?>
 <script type="text/javascript">
   $( ".treeview-tables" ).last().addClass( "active" );
-  $( ".menu-baju" ).last().addClass( "active" );
+  $( ".menu-jaket" ).last().addClass( "active" );
 </script>

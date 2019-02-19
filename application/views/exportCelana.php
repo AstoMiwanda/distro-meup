@@ -19,6 +19,7 @@
 		<th>Ukuran</th>
 		<th>Stock</th>
 		<th>Harga</th>
+		<th>Kategori</th>
 	</tr>
 	<?php 
 	$no = 1;
@@ -31,6 +32,14 @@
 			<td><?php echo $value->ukuran ?></td>
 			<td><?php echo $value->stock ?></td>
 			<td><?php echo $value->harga ?></td>
+			<td>
+			<?php
+				$this->db->where('id', $value->kategori_id);
+				foreach ($this->db->get('tkategori')->result() as $value_kategori) {
+					echo "($value->kategori_id) $value_kategori->kategori";
+				}
+			?>
+			</td>
 		</tr>
 	<?php } ?>
 </table>
